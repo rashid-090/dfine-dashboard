@@ -116,7 +116,7 @@ const DefinitionPage = () => {
 
         <div className="border border-border">
           <Table>
-            <TableHeader className="bg-gray-50 text-black">
+            <TableHeader className="bg-muted text-foreground">
               <TableRow>
                 <TableHead className="w-[80px] text-center font-bold  uppercase text-[10px]">No.</TableHead>
                 <TableHead className="font-bold  uppercase text-[10px]">Name</TableHead>

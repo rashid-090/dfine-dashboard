@@ -84,12 +84,12 @@ const StaffRegistrationPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-white min-h-screen font-sans">
+    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-background min-h-screen font-sans">
       <Toaster position="top-right" />
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl font-semibold text-gray-800">Staff Registration</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Staff Registration</h1>
         <div className="text-xs text-red-500 font-mono">* indicates mandatory</div>
       </div>
 
@@ -106,7 +106,7 @@ const StaffRegistrationPage = () => {
                   value={searchStaff}
                   onChange={(e) => setSearchStaff(e.target.value)}
                 />
-                <Search className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
+                <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
               </div>
               <Button variant="outline" className="rounded-none border-gray-300">
                 Search
@@ -127,7 +127,7 @@ const StaffRegistrationPage = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-3 items-center gap-2">
               <Label className="text-sm font-medium">Staff Code</Label>
-              <Input className="col-span-2 rounded-none border-gray-300 bg-gray-50" value={formData.staffCode} readOnly />
+              <Input className="col-span-2 rounded-none border-border bg-muted" value={formData.staffCode} readOnly />
             </div>
 
             <div className="grid grid-cols-3 items-center gap-2">
@@ -264,7 +264,7 @@ const StaffRegistrationPage = () => {
 
         {/* Action Buttons */}
         <div className="flex gap-3 pt-6 border-t">
-          <Button className="rounded-none bg-black hover:bg-gray-800 text-white px-8" onClick={handleSave}>
+          <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground px-8" onClick={handleSave}>
             <PlusCircle className="w-4 h-4 mr-2" /> Save
           </Button>
           <Button variant="outline" className="rounded-none border-gray-300 px-8" onClick={handleReset}>
@@ -273,7 +273,7 @@ const StaffRegistrationPage = () => {
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mt-2">* Required fields</p>
+      <p className="text-xs text-muted-foreground mt-2">* Required fields</p>
     </div>
   );
 };

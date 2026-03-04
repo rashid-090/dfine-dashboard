@@ -79,12 +79,12 @@ const CompanyProfilePage = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-6 bg-white">
+    <div className="p-6 max-w-6xl mx-auto space-y-6 bg-background">
       <Toaster position="bottom-right" />
       
       {/* Main Header - Company Profile */}
       <div className="border-b pb-2">
-        <h1 className="text-3xl font-semibold text-gray-800">Company Profile</h1>
+        <h1 className="text-3xl font-semibold text-foreground">Company Profile</h1>
       </div>
 
       {/* Logo Upload Section */}
@@ -101,7 +101,7 @@ const CompanyProfilePage = () => {
                 <Upload className="mr-2 h-4 w-4" /> Choose file
               </Button>
               <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-              <span className="text-sm text-gray-500">{selectedFile ? selectedFile.name : "No file chosen"}</span>
+              <span className="text-sm text-muted-foreground">{selectedFile ? selectedFile.name : "No file chosen"}</span>
             </div>
             
             {/* Image Preview */}
@@ -111,7 +111,7 @@ const CompanyProfilePage = () => {
               </div>
             )}
             
-            <p className="text-xs text-gray-400">Image maximum size 400 kb</p>
+            <p className="text-xs text-muted-foreground">Image maximum size 400 kb</p>
             
             {/* Delete Section - Only visible when image is available */}
             {imagePreview && (
@@ -121,7 +121,7 @@ const CompanyProfilePage = () => {
                     id="del" 
                     checked={deleteCheckbox} 
                     onCheckedChange={setDeleteCheckbox}
-                    className="rounded-sm border-gray-400 data-[state=checked]:bg-black data-[state=checked]:border-black"
+                    className="rounded-sm border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
                   <Label htmlFor="del" className="text-sm font-normal">Delete</Label>
                 </div>
@@ -140,7 +140,7 @@ const CompanyProfilePage = () => {
 
       {/* Branch Settings Header */}
       <div className="pt-2">
-        <h2 className="text-2xl font-semibold text-gray-800">Branch Settings</h2>
+        <h2 className="text-2xl font-semibold text-foreground">Branch Settings</h2>
       </div>
 
       {/* Form Fields Section */}
@@ -301,7 +301,7 @@ const CompanyProfilePage = () => {
 
         {/* Bank Details Section */}
         <div className="mt-8 pt-6 border-t space-y-4">
-          <h3 className="text-lg font-medium text-gray-700 mb-4">Bank Information</h3>
+          <h3 className="text-lg font-medium text-foreground mb-4">Bank Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
             <div className="grid grid-cols-3 items-center gap-2">
               <Label className="font-medium">Name of Lab:</Label>
@@ -338,7 +338,7 @@ const CompanyProfilePage = () => {
             <div className="grid grid-cols-3 items-center gap-2">
               <Label className="font-medium">Bank Details</Label>
               <Input 
-                className="col-span-2 rounded-none bg-gray-50 border-gray-300" 
+                className="col-span-2 rounded-none bg-muted border-border" 
                 value={formData.bankDetails} 
                 readOnly 
               />
@@ -350,7 +350,7 @@ const CompanyProfilePage = () => {
       {/* Save Button */}
       <div className="pt-4">
         <Button 
-          className="bg-black text-white rounded-none px-12 py-3 hover:bg-gray-800 font-medium"
+          className="bg-primary text-primary-foreground hover:bg-primary/80 rounded-none px-12 py-3 font-medium"
           onClick={handleSubmit}
         >
           Save
@@ -358,7 +358,7 @@ const CompanyProfilePage = () => {
       </div>
 
       {/* Help text for required fields */}
-      <p className="text-xs text-gray-500 mt-2">* Required fields</p>
+      <p className="text-xs text-muted-foreground mt-2">* Required fields</p>
     </div>
   );
 };

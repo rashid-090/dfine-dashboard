@@ -82,7 +82,7 @@ const VendorManagementPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-white min-h-screen font-sans text-black">
+    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-background min-h-screen font-sans text-foreground">
       <Toaster position="top-right" />
       
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
@@ -91,22 +91,22 @@ const VendorManagementPage = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-10">
-        <TabsList className="bg-gray-100 p-1 rounded-none mb-6 h-10 border">
-          <TabsTrigger value="registration" className="rounded-none px-8 data-[state=active]:bg-black data-[state=active]:text-white">
+        <TabsList className="bg-muted p-1 rounded-none mb-6 h-10 border">
+          <TabsTrigger value="registration" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
             Vendor Registration
           </TabsTrigger>
-          <TabsTrigger value="assign" className="rounded-none px-8 data-[state=active]:bg-black data-[state=active]:text-white">
+          <TabsTrigger value="assign" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
             Assign Product
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="registration" className="space-y-6">
           {/* ... [Registration Form Remains the Same] ... */}
-          <div className="flex items-center gap-4 border p-4 bg-gray-50">
+          <div className="flex items-center gap-4 border p-4 bg-muted">
             <Label className="font-semibold text-xs">Enter Vendor Name:</Label>
             <div className="flex gap-2 w-full max-w-md">
-              <Input placeholder="Search..." className="rounded-none border-gray-300 bg-white h-9 text-xs" />
-              <Button className="bg-black hover:bg-gray-800 text-white rounded-none px-6 h-9 text-xs font-bold uppercase">Select</Button>
+              <Input placeholder="Search..." className="rounded-none border-border bg-background h-9 text-xs" />
+              <Button className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-none px-6 h-9 text-xs font-bold uppercase">Select</Button>
               <Button variant="outline" className="rounded-none h-9 border-gray-300"><RefreshCcw className="w-4 h-4 text-gray-600" /></Button>
             </div>
           </div>
@@ -119,7 +119,7 @@ const VendorManagementPage = () => {
                    <Label className="text-xs">Vendor Name <span className="text-red-500">*</span></Label>
                    <div className="col-span-2 flex gap-1">
                      <Select value={vendorData.salutation} onValueChange={(v) => handleVendorChange('salutation', v)}>
-                        <SelectTrigger className="w-[80px] rounded-none border-gray-300 h-9 bg-white"><SelectValue /></SelectTrigger>
+                        <SelectTrigger className="w-[80px] rounded-none border-border h-9 bg-background"><SelectValue /></SelectTrigger>
                         <SelectContent className="rounded-none"><SelectItem value="Mr.">Mr.</SelectItem><SelectItem value="Ms.">Ms.</SelectItem><SelectItem value="M/s.">M/s.</SelectItem></SelectContent>
                      </Select>
                      <Input value={vendorData.vendorName} onChange={(e) => handleVendorChange('vendorName', e.target.value)} className="rounded-none border-gray-300 h-9 bg-white flex-1" />
@@ -132,7 +132,7 @@ const VendorManagementPage = () => {
                    <Label className="text-xs">Status</Label>
                    <div className="col-span-2 flex items-center gap-3">
                     <span className="text-sm">{vendorData.status}</span>
-                    <div className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${vendorData.status === 'Active' ? 'bg-green-600' : 'bg-gray-300'}`} onClick={() => handleVendorChange('status', vendorData.status === 'Active' ? 'Inactive' : 'Active')}><div className={`bg-white w-3 h-3 rounded-full transition-transform ${vendorData.status === 'Active' ? 'translate-x-5' : 'translate-x-0'}`} /></div>
+                    <div className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${vendorData.status === 'Active' ? 'bg-green-600' : 'bg-muted'}`} onClick={() => handleVendorChange('status', vendorData.status === 'Active' ? 'Inactive' : 'Active')}><div className={`bg-background w-3 h-3 rounded-full transition-transform ${vendorData.status === 'Active' ? 'translate-x-5' : 'translate-x-0'}`} /></div>
                   </div>
                  </div>
                </div>
@@ -143,15 +143,15 @@ const VendorManagementPage = () => {
 
         {/* --- ASSIGN PRODUCT TAB (INTERACTIVE) --- */}
         <TabsContent value="assign" className="space-y-6">
-          <div className="flex items-center gap-4 bg-gray-50 p-4 border border-dashed border-gray-300">
-            <Label className="font-semibold text-xs  text-gray-500">Selected Vendor:</Label>
+          <div className="flex items-center gap-4 bg-muted p-4 border border-dashed border-border">
+            <Label className="font-semibold text-xs  text-muted-foreground">Selected Vendor:</Label>
             <span className="text-black font-semibold  tracking-tight">{vendorData.vendorName}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* PRODUCT SELECTION LIST */}
             <div className="lg:col-span-4 space-y-2">
-              <Label className="font-mono block text-xs font-mono text-gray-400 tracking-widest">Inventory List</Label>
+              <Label className="font-mono block text-xs font-mono text-muted-foreground tracking-widest">Inventory List</Label>
               <div className="border border-black h-80 overflow-y-auto bg-white">
                 {availableProducts.map((prod, i) => (
                   <div 
@@ -171,7 +171,7 @@ const VendorManagementPage = () => {
               </div>
               <Button 
                 onClick={handleAddProduct}
-                className="w-full bg-black hover:bg-gray-800 text-white rounded-none mt-2 h-10 font-semibold uppercase text-xs"
+                className="w-full bg-primary hover:bg-primary/80 text-primary-foreground rounded-none mt-2 h-10 font-semibold uppercase text-xs"
               >
                 Assign Product to Vendor
               </Button>
@@ -186,7 +186,7 @@ const VendorManagementPage = () => {
                
                <div className="border border-black overflow-x-auto shadow-sm">
                   <Table>
-                    <TableHeader className="bg-gray-100">
+                    <TableHeader className="bg-muted">
                       <TableRow className="hover:bg-transparent">
                         <TableHead className="text-black font-bold h-10 border-r border-gray-200 text-xs">S.No</TableHead>
                         <TableHead className="text-black font-bold h-10 border-r border-gray-200 text-xs">Item Code</TableHead>
@@ -196,7 +196,7 @@ const VendorManagementPage = () => {
                     </TableHeader>
                     <TableBody>
                       {assignedProducts.length > 0 ? assignedProducts.map((item, idx) => (
-                        <TableRow key={item.id} className="hover:bg-gray-50 transition-colors">
+                        <TableRow key={item.id} className="hover:bg-muted/50 transition-colors">
                           <TableCell className="py-2 text-xs border-r border-gray-100">{idx + 1}</TableCell>
                           <TableCell className="py-2 text-xs border-r border-gray-100 font-bold">{item.itemCode}</TableCell>
                           <TableCell className="py-2 text-xs border-r border-gray-100 uppercase">{item.description}</TableCell>

@@ -136,7 +136,7 @@ const WorkFlowPage = () => {
           </Button>
           <Button 
             variant="outline"
-            className="rounded-none px-10 font-bold border-black text-black hover:bg-gray-100"
+            className="rounded-none px-10 font-bold border-border text-foreground hover:bg-muted"
             onClick={handleReset}
           >
             <RotateCcw className="mr-2 h-4 w-4" /> Reset
@@ -153,7 +153,7 @@ const WorkFlowPage = () => {
 
         <div className="border border-gray-100 overflow-hidden">
           <Table>
-            <TableHeader className="bg-gray-50 text-black">
+            <TableHeader className="bg-muted text-foreground">
               <TableRow>
                 <TableHead className="w-[60px] text-center font-bold uppercase text-[10px]">No.</TableHead>
                 <TableHead className="font-bold uppercase text-[10px]">Product</TableHead>
@@ -164,8 +164,8 @@ const WorkFlowPage = () => {
             <TableBody>
               {dataList.length > 0 ? (
                 dataList.map((item, index) => (
-                  <TableRow key={item.id} className="hover:bg-gray-50 border-b border-gray-100 last:border-0">
-                    <TableCell className="text-center text-sm text-gray-500">{index + 1}</TableCell>
+                  <TableRow key={item.id} className="hover:bg-muted border-b border-border last:border-0">
+                    <TableCell className="text-center text-sm text-muted-foreground">{index + 1}</TableCell>
                     <TableCell className="text-sm font-medium">{item.product}</TableCell>
                     <TableCell className="text-sm">{item.stage}</TableCell>
                     <TableCell className="flex justify-end gap-4 py-3 px-6 text-gray-400">

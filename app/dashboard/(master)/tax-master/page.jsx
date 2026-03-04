@@ -160,7 +160,7 @@ const TaxMasterPage = () => {
           </Button>
           <Button 
             variant="outline"
-            className="rounded-none px-10 font-bold border-black text-black hover:bg-gray-100"
+            className="rounded-none px-10 font-bold border-border text-foreground hover:bg-muted"
             onClick={handleReset}
           >
             <RotateCcw className="mr-2 h-4 w-4" /> Reset
@@ -177,7 +177,7 @@ const TaxMasterPage = () => {
 
         <div className="border border-gray-200 overflow-hidden">
           <Table>
-            <TableHeader className="bg-gray-50">
+            <TableHeader className="bg-muted">
               <TableRow>
                 <TableHead className="w-[60px] text-center font-bold uppercase text-[11px] text-black">S.No.</TableHead>
                 <TableHead className="font-bold uppercase text-[11px] text-black">Tax Name/Code</TableHead>
@@ -189,8 +189,8 @@ const TaxMasterPage = () => {
             <TableBody>
               {dataList.length > 0 ? (
                 dataList.map((item, index) => (
-                  <TableRow key={item.id} className="hover:bg-gray-50 border-b border-gray-100">
-                    <TableCell className="text-center text-sm text-gray-600">{index + 1}</TableCell>
+                  <TableRow key={item.id} className="hover:bg-muted border-b border-border">
+                    <TableCell className="text-center text-sm text-muted-foreground">{index + 1}</TableCell>
                     <TableCell className="text-sm font-medium">{item.taxNameCode}</TableCell>
                     <TableCell className="text-sm text-gray-700">{item.taxDescription}</TableCell>
                     <TableCell className="text-sm text-gray-700">{item.percent}</TableCell>

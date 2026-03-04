@@ -6,8 +6,6 @@ import Link from "next/link"
 import {
   Search,
   Bell,
-  Moon,
-  Sun,
   Menu,
   LogOut,
   User,
@@ -33,11 +31,9 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { useTheme } from "next-themes"
 import { Sidebar } from "@/components/sidebar"
 
 export function Header({ className, onMenuClick }) {
-  const { theme, setTheme } = useTheme()
   const [searchQuery, setSearchQuery] = React.useState("")
   const [mounted, setMounted] = React.useState(false)
   const [chatOpen, setChatOpen] = React.useState(false)
@@ -313,21 +309,6 @@ export function Header({ className, onMenuClick }) {
       {/* Right Section - Theme Toggle, Notifications, Chat, Profile */}
       <div className="flex items-center gap-2">
        
-
-        {/* Theme Toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="h-9 w-9"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-4 w-4" />
-          ) : (
-            <Moon className="h-4 w-4" />
-          )}
-          <span className="sr-only">Toggle theme</span>
-        </Button>
 
         {/* Chat - Sidebar Style */}
         <Sheet>

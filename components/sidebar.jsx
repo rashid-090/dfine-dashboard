@@ -40,8 +40,8 @@ const navigationConfig = [
           {  title: "Staff Details", href: "/dashboard/staff-details", },
         ]
       },
-      { title: "Transaction", icon: Repeat, href: "/transactions" },
-      { title: "Report", icon: FileBarChart, href: "/reports" },
+      // { title: "Transaction", icon: Repeat, href: "/transactions" },
+      // { title: "Report", icon: FileBarChart, href: "/reports" },
     ],
   },
 ]

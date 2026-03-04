@@ -94,7 +94,7 @@ const WorkProductsPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-white min-h-screen font-sans">
+    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-background min-h-screen font-sans">
       <Toaster position="top-right" />
       
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
@@ -103,9 +103,9 @@ const WorkProductsPage = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-12">
-        <TabsList className="bg-gray-100 p-1 rounded-none mb-6">
-          <TabsTrigger value="work-product" className="rounded-none px-8 data-[state=active]:bg-black data-[state=active]:text-white">Work Product</TabsTrigger>
-          <TabsTrigger value="materials" className="rounded-none px-8 data-[state=active]:bg-black data-[state=active]:text-white">Materials</TabsTrigger>
+        <TabsList className="bg-muted p-1 rounded-none mb-6">
+          <TabsTrigger value="work-product" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Work Product</TabsTrigger>
+          <TabsTrigger value="materials" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Materials</TabsTrigger>
         </TabsList>
 
         <div className="border p-6 space-y-6 shadow-sm mb-10">
@@ -188,7 +188,7 @@ const WorkProductsPage = () => {
                 <>
                   <div className="grid grid-cols-3 items-center gap-2">
                     <Label>Pricing</Label>
-                    <Input className="col-span-2 rounded-none border-gray-300 bg-gray-50 text-gray-500" value={formData.pricing} readOnly />
+                    <Input className="col-span-2 rounded-none border-border bg-muted text-muted-foreground" value={formData.pricing} readOnly />
                   </div>
                   <div className="grid grid-cols-3 items-center gap-2">
                     <Label>Product Type</Label>
@@ -210,10 +210,10 @@ const WorkProductsPage = () => {
                 <div className="col-span-2 flex items-center gap-3">
                   <span className="text-sm font-medium">{formData.status}</span>
                   <div 
-                    className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${formData.status === 'Active' ? 'bg-green-600' : 'bg-gray-300'}`}
+                    className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${formData.status === 'Active' ? 'bg-green-600' : 'bg-muted'}`}
                     onClick={() => handleChange('status', formData.status === 'Active' ? 'Inactive' : 'Active')}
                   >
-                    <div className={`bg-white w-3 h-3 rounded-full shadow-sm transition-transform ${formData.status === 'Active' ? 'translate-x-5' : 'translate-x-0'}`} />
+                    <div className={`bg-background w-3 h-3 rounded-full shadow-sm transition-transform ${formData.status === 'Active' ? 'translate-x-5' : 'translate-x-0'}`} />
                   </div>
                 </div>
               </div>
@@ -221,7 +221,7 @@ const WorkProductsPage = () => {
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
-            <Button className="rounded-none bg-black hover:bg-gray-800 text-white px-8" onClick={handleSave}>
+            <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground px-8" onClick={handleSave}>
               <PlusCircle className="w-4 h-4 mr-2" /> Save
             </Button>
             <Button variant="outline" className="rounded-none border-gray-300 px-8" onClick={handleReset}>
@@ -250,7 +250,7 @@ const TableDisplay = ({ title, data, columns, type }) => (
     </div>
     <div className="border border-gray-200 overflow-x-auto">
       <Table>
-        <TableHeader className="bg-gray-50">
+        <TableHeader className="bg-muted">
           <TableRow className="hover:bg-transparent">
             {columns.map((col, i) => (
               <TableHead key={i} className="text-black font-bold text-xs h-10">{col}</TableHead>
@@ -259,7 +259,7 @@ const TableDisplay = ({ title, data, columns, type }) => (
         </TableHeader>
         <TableBody>
           {data.length > 0 ? data.map((item, i) => (
-            <TableRow key={item.id} className="hover:bg-gray-50/50">
+            <TableRow key={item.id} className="hover:bg-muted/50">
               <TableCell className="py-2 text-sm">{i + 1}</TableCell>
               <TableCell className="py-2 text-sm">{item.code}</TableCell>
               {type === 'work' ? (

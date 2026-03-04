@@ -104,17 +104,17 @@ const ClinicDetailsPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-white min-h-screen font-sans">
+    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto space-y-6 bg-background min-h-screen font-sans">
       <Toaster position="top-right" />
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl font-semibold text-gray-800">Clinic Details</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Clinic Details</h1>
         <div className="text-xs text-red-500 font-mono">* indicates mandatory</div>
       </div>
 
       {/* Doctor Search Section */}
-      <div className="border border-gray-200 p-6 space-y-4 shadow-sm mt-10">
+      <div className="border border-border p-6 space-y-4 shadow-sm mt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
           <div>
             <Label className="text-sm font-medium block mb-1">Enter Doctor Name:</Label>
@@ -122,7 +122,7 @@ const ClinicDetailsPage = () => {
               <div className="relative flex-1">
                 <Input 
                   placeholder="Search Doctor Name"
-                  className="rounded-none border-gray-300 pr-10"
+                  className="rounded-none border-border pr-10"
                   value={searchDoctor}
                   onChange={(e) => setSearchDoctor(e.target.value)}
                 />
@@ -137,8 +137,8 @@ const ClinicDetailsPage = () => {
       </div>
 
       {/* Main Form */}
-      <div className="border border-gray-200 p-6 space-y-6 shadow-sm mb-10">
-        <div className="text-sm font-bold text-black tracking-wider">
+      <div className="border border-border p-6 space-y-6 shadow-sm mb-10">
+        <div className="text-sm font-bold text-foreground tracking-wider">
           Clinic Information
         </div>
 
@@ -148,7 +148,7 @@ const ClinicDetailsPage = () => {
             <div className="grid grid-cols-3 items-center gap-2">
               <Label className="text-sm font-medium">Clinic ID</Label>
               <Input 
-                className="col-span-2 rounded-none border-gray-300 bg-gray-50"
+                className="col-span-2 rounded-none border-border bg-muted"
                 value={formData.clinicId}
                 readOnly
               />
@@ -158,7 +158,7 @@ const ClinicDetailsPage = () => {
               <Label className="text-sm font-medium">Clinic Name</Label>
               <div className="col-span-2 space-y-2">
                 <Select value={formData.drDropdown} onValueChange={(v) => handleChange('drDropdown', v)}>
-                  <SelectTrigger className="rounded-none border-gray-300">
+                  <SelectTrigger className="rounded-none border-border">
                     <SelectValue placeholder="Dr." />
                   </SelectTrigger>
                   <SelectContent>
@@ -169,7 +169,7 @@ const ClinicDetailsPage = () => {
                 </Select>
                 <Input 
                   placeholder="Enter Clinic Name"
-                  className="rounded-none border-gray-300"
+                  className="rounded-none border-border"
                   value={formData.enterClinicName}
                   onChange={(e) => handleChange('enterClinicName', e.target.value)}
                 />
@@ -464,7 +464,7 @@ const ClinicDetailsPage = () => {
             <div className="flex items-center gap-4">
               <Label className="text-sm font-medium">In Date</Label>
               <Input 
-                className="w-40 rounded-none border-gray-300"
+                className="w-40 rounded-none border-border"
                 type="date"
                 value={formData.inDate}
                 onChange={(e) => handleChange('inDate', e.target.value)}
@@ -475,16 +475,16 @@ const ClinicDetailsPage = () => {
 
         {/* Action Buttons */}
         <div className="flex gap-3 pt-6 border-t">
-          <Button className="rounded-none bg-black hover:bg-gray-800 text-white px-8" onClick={handleSave}>
+          <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground px-8" onClick={handleSave}>
             <PlusCircle className="w-4 h-4 mr-2" /> Save
           </Button>
-          <Button variant="outline" className="rounded-none border-gray-300 px-8" onClick={handleReset}>
+          <Button variant="outline" className="rounded-none border-border px-8" onClick={handleReset}>
             <RefreshCcw className="w-4 h-4 mr-2" /> Reset
           </Button>
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 mt-2">* Required fields</p>
+      <p className="text-xs text-muted-foreground mt-2">* Required fields</p>
     </div>
   );
 };
