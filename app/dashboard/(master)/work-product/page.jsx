@@ -98,7 +98,7 @@ const WorkProductsPage = () => {
       <Toaster position="top-right" />
       
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl font-semibold text-gray-800">Inventory Management</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Inventory Management</h1>
         <div className="text-xs text-red-500 font-mono">* indicates mandatory</div>
       </div>
 

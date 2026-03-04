@@ -84,7 +84,7 @@ const CompanyProfilePage = () => {
       
       {/* Main Header - Company Profile */}
       <div className="border-b pb-2">
-        <h1 className="text-3xl font-semibold text-foreground">Company Profile</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Company Profile</h1>
       </div>
 
       {/* Logo Upload Section */}

@@ -25,7 +25,7 @@ const RateAssignmentPage = () => {
       
       {/* Heading Style */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl font-semibold text-gray-800">Rate Assignment</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Rate Assignment</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
