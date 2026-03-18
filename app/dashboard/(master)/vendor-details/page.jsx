@@ -86,16 +86,16 @@ const VendorManagementPage = () => {
       <Toaster position="top-right" />
       
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Vendor Management</h1>
-        <div className="text-xs text-red-500 font-mono uppercase tracking-tighter">* indicates mandatory</div>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Vendor Management</h1>
+        <div className="text-xs text-red-500 font-mono tracking-tighter">* indicates mandatory</div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-10">
         <TabsList className="bg-muted p-1 rounded-none mb-6 h-10 border">
-          <TabsTrigger value="registration" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+          <TabsTrigger value="registration" className="rounded-none px-8 data-[state=active]:bg-main data-[state=active]:text-primary-foreground">
             Vendor Registration
           </TabsTrigger>
-          <TabsTrigger value="assign" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+          <TabsTrigger value="assign" className="rounded-none px-8 data-[state=active]:bg-main data-[state=active]:text-primary-foreground">
             Assign Product
           </TabsTrigger>
         </TabsList>
@@ -106,7 +106,7 @@ const VendorManagementPage = () => {
             <Label className="font-semibold text-xs">Enter Vendor Name:</Label>
             <div className="flex gap-2 w-full max-w-md">
               <Input placeholder="Search..." className="rounded-none border-border bg-background h-9 text-xs" />
-              <Button className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-none px-6 h-9 text-xs font-bold uppercase">Select</Button>
+              <Button className="bg-main hover:bg-mainhvr cursor-pointer text-primary-foreground rounded-none px-6 h-9 text-xs font-bold uppercase">Select</Button>
               <Button variant="outline" className="rounded-none h-9 border-gray-300"><RefreshCcw className="w-4 h-4 text-gray-600" /></Button>
             </div>
           </div>
@@ -137,7 +137,7 @@ const VendorManagementPage = () => {
                  </div>
                </div>
              </div>
-             <div className="flex gap-3 pt-4 border-t"><Button className="rounded-none bg-black text-white px-8"><Save className="w-4 h-4 mr-2" /> Save</Button><Button variant="outline" className="rounded-none border-gray-300 px-8 text-gray-600"><RefreshCcw className="w-4 h-4 mr-2" /> Reset</Button></div>
+             <div className="flex gap-3 pt-4 border-t"><Button className="rounded-none bg-main hover:bg-mainhvr text-white px-8"><Save className="w-4 h-4 mr-2" /> Save</Button><Button variant="outline" className="rounded-none border-gray-300 px-8 text-gray-600"><RefreshCcw className="w-4 h-4 mr-2" /> Reset</Button></div>
           </div>
         </TabsContent>
 
@@ -171,7 +171,7 @@ const VendorManagementPage = () => {
               </div>
               <Button 
                 onClick={handleAddProduct}
-                className="w-full bg-primary hover:bg-primary/80 text-primary-foreground rounded-none mt-2 h-10 font-semibold uppercase text-xs"
+                className="w-full bg-main hover:bg-mainhvr text-primary-foreground rounded-none mt-2 h-10 font-semibold uppercase text-xs"
               >
                 Assign Product to Vendor
               </Button>

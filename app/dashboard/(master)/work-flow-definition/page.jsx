@@ -58,7 +58,7 @@ const WorkFlowPage = () => {
       {/* Header matching the DefinitionPage style */}
       <div className="space-y-1">
 
-          <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Work Flow Definitions</h2>
+          <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Work Flow Definitions</h2>
         <hr className="border-border" />
       </div>
 
@@ -129,7 +129,7 @@ const WorkFlowPage = () => {
         {/* Centered Action Buttons */}
         <div className="flex justify-start gap-4">
           <Button 
-            className="rounded-none px-10 font-bold bg-black text-white hover:bg-gray-800"
+            className="rounded-none px-10 font-bold bg-main text-white hover:bg-mainhvr"
             onClick={handleSave}
           >
             <PlusCircle className="mr-2 h-4 w-4" /> Save

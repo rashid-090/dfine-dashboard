@@ -101,7 +101,7 @@ const TaxMasterPage = () => {
       
       {/* Header with Tax Details title */}
       <div className="space-y-1">
-        <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Tax Details</h2>
+        <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Tax Details</h2>
         <hr className="border-border" />
       </div>
 
@@ -153,7 +153,7 @@ const TaxMasterPage = () => {
         {/* Centered Action Buttons */}
         <div className="flex justify-start gap-4">
           <Button 
-            className="rounded-none px-10 font-bold bg-black text-white hover:bg-gray-800"
+            className="rounded-none px-10 font-bold bg-main text-white hover:bg-mainhvr cursor-pointer"
             onClick={handleSave}
           >
             <PlusCircle className="mr-2 h-4 w-4" /> Save

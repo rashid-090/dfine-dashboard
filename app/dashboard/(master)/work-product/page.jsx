@@ -98,14 +98,14 @@ const WorkProductsPage = () => {
       <Toaster position="top-right" />
       
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Inventory Management</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Inventory Management</h1>
         <div className="text-xs text-red-500 font-mono">* indicates mandatory</div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-12">
         <TabsList className="bg-muted p-1 rounded-none mb-6">
-          <TabsTrigger value="work-product" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Work Product</TabsTrigger>
-          <TabsTrigger value="materials" className="rounded-none px-8 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">Materials</TabsTrigger>
+          <TabsTrigger value="work-product" className="rounded-none px-8 data-[state=active]:bg-main data-[state=active]:text-primary-foreground">Work Product</TabsTrigger>
+          <TabsTrigger value="materials" className="rounded-none px-8 data-[state=active]:bg-main data-[state=active]:text-primary-foreground">Materials</TabsTrigger>
         </TabsList>
 
         <div className="border p-6 space-y-6 shadow-sm mb-10">
@@ -221,7 +221,7 @@ const WorkProductsPage = () => {
           </div>
 
           <div className="flex gap-3 pt-4 border-t">
-            <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground px-8" onClick={handleSave}>
+            <Button className="rounded-none bg-main hover:bg-mainhvr cursor-pointer text-primary-foreground px-8" onClick={handleSave}>
               <PlusCircle className="w-4 h-4 mr-2" /> Save
             </Button>
             <Button variant="outline" className="rounded-none border-gray-300 px-8" onClick={handleReset}>

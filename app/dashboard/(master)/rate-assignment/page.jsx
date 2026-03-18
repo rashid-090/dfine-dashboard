@@ -25,7 +25,7 @@ const RateAssignmentPage = () => {
       
       {/* Heading Style */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Rate Assignment</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Rate Assignment</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
@@ -107,7 +107,7 @@ const RateAssignmentPage = () => {
           </div>
 
           <div className="flex gap-2 items-center pt-4">
-            <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground font-medium h-10 uppercase text-xs px-8">
+            <Button className="rounded-none bg-main hover:bg-mainhvr text-primary-foreground font-medium h-10 uppercase text-xs px-8">
               <Plus className="w-4 h-4 mr-2" /> Add
             </Button>
             <Button variant="outline" className="rounded-none border-gray-300 font-medium h-10 uppercase text-xs px-8">
@@ -127,7 +127,7 @@ const RateAssignmentPage = () => {
             <Label className="text-xs font-bold text-muted-foreground">Product Description</Label>
             <div className="flex w-72">
               <Input className="rounded-none border-border h-8 text-xs" placeholder="Filter products..." />
-              <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground text-[10px] px-4 uppercase h-8">
+              <Button className="rounded-none bg-main hover:bg-mainhvr text-primary-foreground text-[10px] px-4 uppercase h-8">
                 Search
               </Button>
             </div>

@@ -58,7 +58,7 @@ const DefinitionPage = () => {
       
       {/* Simple Header */}
       <div className="space-y-1">
-        <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Definitions</h2>
+        <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Definitions</h2>
         <hr className="border-border" />
       </div>
 
@@ -99,7 +99,7 @@ const DefinitionPage = () => {
 
         <div className="flex justify-end">
           <Button 
-            className={`rounded-none px-8 font-semibold transition-colors ${editingId ? 'bg-muted text-foreground border border-input hover:bg-muted/80' : 'bg-primary text-primary-foreground hover:bg-primary/80'}`}
+            className={`bg-main hover:bg-mainhvr cursor-pointer rounded-none px-8 font-semibold transition-colors ${editingId ? ' text-foreground border border-input hover:bg-muted/80' : ' text-primary-foreground'}`}
             onClick={handleSave}
           >
             {editingId ? 'Update Entry' : 'Add Entry'}

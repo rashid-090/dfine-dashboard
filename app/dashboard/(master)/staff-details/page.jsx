@@ -89,7 +89,7 @@ const StaffRegistrationPage = () => {
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-4 border-b pb-2">
-        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-foreground">Staff Registration</h1>
+        <h1 className="text-2xl md:text-3xl font-medium tracking-tight mb-2 text-main">Staff Registration</h1>
         <div className="text-xs text-red-500 font-mono">* indicates mandatory</div>
       </div>
 
@@ -98,19 +98,10 @@ const StaffRegistrationPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
           <div>
             <Label className="text-sm font-medium block mb-1">Enter Staff Name:</Label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Input 
-                  placeholder="Search Staff Name"
-                  className="rounded-none border-gray-300 pr-10"
-                  value={searchStaff}
-                  onChange={(e) => setSearchStaff(e.target.value)}
-                />
-                <Search className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
-              </div>
-              <Button variant="outline" className="rounded-none border-gray-300">
-                Search
-              </Button>
+            <div className="flex gap-2 w-full max-w-md">
+              <Input placeholder="Search..." className="rounded-none border-border bg-background h-9 text-xs" />
+              <Button className="bg-main hover:bg-mainhvr cursor-pointer text-primary-foreground rounded-none px-6 h-9 text-xs font-bold uppercase">Select</Button>
+              <Button variant="outline" className="rounded-none h-9 border-gray-300"><RefreshCcw className="w-4 h-4 text-gray-600" /></Button>
             </div>
           </div>
         </div>
@@ -264,7 +255,7 @@ const StaffRegistrationPage = () => {
 
         {/* Action Buttons */}
         <div className="flex gap-3 pt-6 border-t">
-          <Button className="rounded-none bg-primary hover:bg-primary/80 text-primary-foreground px-8" onClick={handleSave}>
+          <Button className="rounded-none bg-main hover:bg-mainhvr text-primary-foreground px-8" onClick={handleSave}>
             <PlusCircle className="w-4 h-4 mr-2" /> Save
           </Button>
           <Button variant="outline" className="rounded-none border-gray-300 px-8" onClick={handleReset}>

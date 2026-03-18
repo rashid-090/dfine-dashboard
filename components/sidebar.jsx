@@ -70,7 +70,7 @@ export function Sidebar({ className, isMobile = false }) {
       <div className="w-full flex flex-col">
         <div
           className={cn(
-            "group flex w-full items-center rounded-lg px-3 py-2 text-[14px] font-medium transition-colors",
+            "group flex w-full items-center rounded-lg rounded-r-none px-3 py-2 text-[14px] font-medium transition-colors",
             // Dark mode aware active/hover states
             isActive 
               ? "bg-primary/10 text-primary" 
@@ -101,7 +101,7 @@ export function Sidebar({ className, isMobile = false }) {
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="w-full mt-1 border-l border-border ml-4 pl-2">
+          <div className="w-full mt-1 border-l border-border ml-4 pl-2 overflow-x-hidden">
             {item.children.map((child) => (
               <NavItem key={child.title} item={child} depth={depth + 1} />
             ))}
@@ -122,14 +122,14 @@ export function Sidebar({ className, isMobile = false }) {
         </div>
       )
     }
-    return <Icon className={cn("h-5 w-5 shrink-0", isActive ? "text-primary" : "text-muted-foreground")} />
+    return <Icon className={cn("h-5 w-5 shrink-0", isActive ? "text-main" : "text-muted-foreground")} />
   }
 
   return (
     <aside 
       className={cn(
         // Using shadcn tokens: bg-background and border-border
-        "border-r bg-background flex flex-col", 
+        "border-r bg-background flex flex-col overflow-x-hidden", 
         isMobile 
           ? "w-full h-full" 
           : "fixed left-0 top-0 z-30 hidden h-screen w-[260px] md:flex",
@@ -139,12 +139,12 @@ export function Sidebar({ className, isMobile = false }) {
       {/* Logo Section */}
       <div className="flex items-center px-6 py-3 border-b border-border">
         <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-main text-primary-foreground shadow-sm">
             <Activity className="h-6 w-6" />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold text-foreground leading-none">Dfine</span>
-            <span className="text-[10px] font-semibold text-primary uppercase tracking-wider mt-1">
+            <span className="text-xl font-bold text-main leading-none">Dfine</span>
+            <span className="text-[10px] font-semibold text-main uppercase tracking-wider mt-1">
               Clinic CRM
             </span>
           </div>
@@ -152,7 +152,7 @@ export function Sidebar({ className, isMobile = false }) {
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 overflow-y-auto px-3 py-6 scrollbar-thin">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 pr-3 py-6 scrollbar-thin">
         {navigationConfig.map((section) => (
           <div key={section.group} className="mb-6">
             <p className="px-3 mb-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">

@@ -78,13 +78,13 @@ const subscriptionsData = [
 
 function StatCard({ title, value, change, changeType, icon: Icon, isOpen, onToggle }) {
   return (
-    <Card className={cn("cursor-pointer transition-all hover:shadow-md", isOpen && "ring-2 ring-primary")} onClick={onToggle}>
+    <Card className={cn("cursor-pointer transition-all hover:shadow-md", isOpen && "ring-2 ring-main")} onClick={onToggle}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardTitle className="text-sm font-medium text-main">{title}</CardTitle>
         <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+        <div className="text-2xl font-bold text-main">{value}</div>
         <p className="flex items-center text-xs text-muted-foreground">
           {changeType === "positive" ? (
             <>
@@ -104,7 +104,7 @@ function StatCard({ title, value, change, changeType, icon: Icon, isOpen, onTogg
         <Button
           variant={isOpen ? "default" : "outline"}
           size="sm"
-          className="mt-3 w-full"
+          className={`mt-3 w-full `}
           onClick={(e) => {
             e.stopPropagation()
             onToggle()
@@ -325,7 +325,7 @@ function DashboardContent() {
     return (
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-main">Dashboard</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1,2,3,4,5,6].map(i => (
@@ -347,7 +347,7 @@ function DashboardContent() {
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       {/* Dashboard Title */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 gap-2">
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Dashboard</h2>
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-main">Dashboard</h2>
         <div className="flex items-center space-x-2">
           <div className="hidden sm:block">
             <DateRangePicker
