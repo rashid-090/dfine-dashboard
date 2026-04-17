@@ -31,11 +31,11 @@ const ROLE_ROUTES = {
   ],
   staff: [
     "/dashboard",
-    "/dashboard/definition",
-    "/dashboard/work-flow-definition",
-    "/dashboard/work-product",
-    "/dashboard/clinic-details",
-    "/dashboard/rate-assignment",
+    "/dashboard/order",
+    "/dashboard/delivery-challan",
+    "/dashboard/bill",
+    "/dashboard/receipt",
+    "/dashboard/stock",
   ],
   doctor: [
     "/dashboard",

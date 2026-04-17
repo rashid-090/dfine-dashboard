@@ -55,15 +55,16 @@ const navigationConfig = {
   ],
   staff: [
     { title: "Dashboard", icon: Home, href: "/dashboard" },
-    { 
-      title: "Masters", 
-      icon: Database, 
+   { 
+      title: "Operations", 
+      icon: Truck, 
       children: [
-        { title: "Definition", href: "/dashboard/definition" },
-        { title: "Work Flow Definition", href: "/dashboard/work-flow-definition" },
-        {  title: "Work Product" , href: "/dashboard/work-product",},
-        {  title: "Clinic Details" , href: "/dashboard/clinic-details",},
-        {  title: "Rate Assignment" , href: "/dashboard/rate-assignment",},
+        { title: "Order", href: "/dashboard/order" },
+        { title: "Delivery Challan", href: "/dashboard/delivery-challan" },
+        { title: "Bill", href: "/dashboard/bills" },
+        { title: "Receipt", href: "/dashboard/receipts" },
+        { title: "Stock", href: "/dashboard/stock" },
+
       ]
     },
   ],
@@ -84,7 +85,7 @@ export function Sidebar({ className, isMobile = false }) {
     e.preventDefault()
     e.stopPropagation()
     setExpandedItems(prev => 
-      prev.includes(title) ? prev.filter(i => i !== title) : [...prev, title]
+      prev.includes(title) ? prev.filter(i => i !== title) : [title]
     )
   }
 
