@@ -4,6 +4,7 @@ import * as React from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/context/auth-context"
 import {
   Home,
   Database,
@@ -11,44 +12,73 @@ import {
   FileBarChart,
   MoreHorizontal,
   Activity,
-  ChevronDown
+  ChevronDown,
+  Truck
 } from "lucide-react"
 
-const navigationConfig = [
-  {
-    group: "MAIN MENU",
-    items: [
-      { title: "Dashboard", icon: Home, href: "/dashboard" },
-      { 
-        title: "Masters", 
-        icon: Database, 
-        children: [
-          { title: "Definition", href: "/dashboard/definition" },
-          { title: "Work Flow Definition", href: "/dashboard/work-flow-definition" },
-          { 
-            title: "Configuration", 
-            href: "/configuration",
-            children: [
-              { title: "Tax Master", href: "/dashboard/tax-master" },
-              { title: "Company Profile", href: "/dashboard/company-profile" },
-            ]
-          },
-          {  title: "Work Product" , href: "/dashboard/work-product",},
-          {  title: "Vendor Details" , href: "/dashboard/vendor-details",},
-          {  title: "Clinic Details" , href: "/dashboard/clinic-details",},
-          {  title: "Rate Assignment" , href: "/dashboard/rate-assignment",},
-          {  title: "Staff Details", href: "/dashboard/staff-details", },
-        ]
-      },
-      // { title: "Transaction", icon: Repeat, href: "/transactions" },
-      // { title: "Report", icon: FileBarChart, href: "/reports" },
-    ],
-  },
-]
+const navigationConfig = {
+  admin: [
+    { title: "Dashboard", icon: Home, href: "/dashboard" },
+    { 
+      title: "Masters", 
+      icon: Database, 
+      children: [
+        { title: "Definition", href: "/dashboard/definition" },
+        { title: "Work Flow Definition", href: "/dashboard/work-flow-definition" },
+        { 
+          title: "Configuration", 
+          href: "/configuration",
+          children: [
+            { title: "Tax Master", href: "/dashboard/tax-master" },
+            { title: "Company Profile", href: "/dashboard/company-profile" },
+          ]
+        },
+        {  title: "Work Product" , href: "/dashboard/work-product",},
+        {  title: "Vendor Details" , href: "/dashboard/vendor-details",},
+        {  title: "Clinic Details" , href: "/dashboard/clinic-details",},
+        {  title: "Rate Assignment" , href: "/dashboard/rate-assignment",},
+        {  title: "Staff Details", href: "/dashboard/staff-details", },
+      ]
+    },
+    { 
+      title: "Operations", 
+      icon: Truck, 
+      children: [
+        { title: "Order", href: "/dashboard/order" },
+        { title: "Delivery Challan", href: "/dashboard/delivery-challan" },
+        { title: "Bill", href: "/dashboard/bills" },
+        { title: "Receipt", href: "/dashboard/receipts" },
+        { title: "Stock", href: "/dashboard/stock" },
+
+      ]
+    },
+  ],
+  staff: [
+    { title: "Dashboard", icon: Home, href: "/dashboard" },
+    { 
+      title: "Masters", 
+      icon: Database, 
+      children: [
+        { title: "Definition", href: "/dashboard/definition" },
+        { title: "Work Flow Definition", href: "/dashboard/work-flow-definition" },
+        {  title: "Work Product" , href: "/dashboard/work-product",},
+        {  title: "Clinic Details" , href: "/dashboard/clinic-details",},
+        {  title: "Rate Assignment" , href: "/dashboard/rate-assignment",},
+      ]
+    },
+  ],
+  doctor: [
+    { title: "Dashboard", icon: Home, href: "/dashboard" },
+  ],
+}
 
 export function Sidebar({ className, isMobile = false }) {
   const pathname = usePathname()
   const [expandedItems, setExpandedItems] = React.useState(["Masters"])
+  const { user } = useAuth()
+  
+  const role = user?.role || "doctor"
+  const navigationItems = navigationConfig[role] || navigationConfig.doctor
 
   const toggleExpand = (e, title) => {
     e.preventDefault()
@@ -153,18 +183,16 @@ export function Sidebar({ className, isMobile = false }) {
 
       {/* Navigation */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden px-3 pr-3 py-6 scrollbar-thin">
-        {navigationConfig.map((section) => (
-          <div key={section.group} className="mb-6">
-            <p className="px-3 mb-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-              {section.group}
-            </p>
-            <div className="grid gap-1">
-              {section.items.map((item) => (
-                <NavItem key={item.title} item={item} />
-              ))}
-            </div>
+        <div className="mb-6">
+          <p className="px-3 mb-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            Main Menu
+          </p>
+          <div className="grid gap-1">
+            {navigationItems.map((item) => (
+              <NavItem key={item.title} item={item} />
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
       

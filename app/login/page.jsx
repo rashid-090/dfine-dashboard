@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,17 +13,46 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useAuth } from "@/context/auth-context"
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+  const router = useRouter()
+  const { login, user, isLoading: authLoading } = useAuth()
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.push("/dashboard")
+    }
+  }, [user, authLoading, router])
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted px-4 py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
 
   function onSubmit(event) {
     event.preventDefault()
     setIsLoading(true)
+    setError("")
+
+    const formData = new FormData(event.currentTarget)
+    const username = formData.get("email")
+    const password = formData.get("password")
 
     setTimeout(() => {
+      const result = login(username, password)
       setIsLoading(false)
-    }, 2000)
+      if (result.success) {
+        router.push("/dashboard")
+      } else {
+        setError(result.error)
+      }
+    }, 1000)
   }
 
   return (
@@ -39,22 +69,28 @@ export default function LoginPage() {
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
             <CardDescription>
-              Enter your email and password to continue
+              Enter your username and password to continue
             </CardDescription>
           </CardHeader>
           <form onSubmit={onSubmit}>
             <CardContent className="space-y-4">
+              {error && (
+                <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md">
+                  {error}
+                </div>
+              )}
               <div className="space-y-2">
                 <label
                   htmlFor="email"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Email
+                  Username
                 </label>
                 <Input
                   id="email"
-                  type="email"
-                  placeholder="name@example.com"
+                  name="email"
+                  type="text"
+                  placeholder="Enter your username"
                   required
                   disabled={isLoading}
                 />
@@ -76,6 +112,7 @@ export default function LoginPage() {
                 </div>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
                   placeholder="Enter your password"
                   required
@@ -91,15 +128,14 @@ export default function LoginPage() {
               >
                 {isLoading ? "Signing in..." : "Sign in"}
               </Button>
-              <p className="text-center text-sm text-muted-foreground">
-                Don't have an account?{" "}
-                <Link
-                  href="/register"
-                  className="text-primary hover:underline font-medium"
-                >
-                  Sign up
-                </Link>
-              </p>
+              <div className="text-center space-y-2">
+                <p className="text-xs text-muted-foreground">Demo Credentials:</p>
+                <div className="flex gap-5 items-center text-xs text-muted-foreground">
+                  <p>admin / admin</p>
+                  <p>staff / staff</p>
+                  <p>doctor / doctor</p>
+                </div>
+              </div>
             </CardFooter>
           </form>
         </Card>

@@ -1,13 +1,26 @@
-import Link from 'next/link'
-import React from 'react'
+"use client"
 
-const page = () => {
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/auth-context"
+
+export default function HomePage() {
+  const { user, isLoading } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isLoading) {
+      if (user) {
+        router.push("/dashboard")
+      } else {
+        router.push("/login")
+      }
+    }
+  }, [user, isLoading, router])
+
   return (
-    <div className='h-screen w-full flex items-center justify-center flex-col gap-4'>
-      <h2 className='font-semibold text-5xl'>Home Page</h2>
-      <Link href='/dashboard' className='mt-4 bg-black text-white px-4 py-2 rounded'>Go to Dashboard</Link>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
     </div>
   )
 }
-
-export default page

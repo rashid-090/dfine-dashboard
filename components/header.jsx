@@ -1,8 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { useAuth } from "@/context/auth-context"
 import {
   Search,
   Bell,
@@ -43,10 +45,16 @@ export function Header({ className, onMenuClick }) {
     { id: 3, sender: "user", text: "Sure, I'd be happy to help. What's your order number?", time: "10:03 AM" },
   ])
   const [newMessage, setNewMessage] = React.useState("")
+  const { user, logout } = useAuth()
+  const router = useRouter()
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
+
+  const handleLogout = () => {
+    logout()
+  }
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -262,7 +270,7 @@ export function Header({ className, onMenuClick }) {
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer text-destructive">
+              <DropdownMenuItem className="cursor-pointer text-destructive" onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
@@ -437,7 +445,7 @@ export function Header({ className, onMenuClick }) {
                 <AvatarFallback>SC</AvatarFallback>
               </Avatar>
               <div className="hidden text-left md:block">
-                <p className="text-sm font-medium">Admin</p>
+                <p className="text-sm font-medium">{user?.name}</p>
               </div>
               <ChevronDown className="h-4 w-4 text-muted-foreground hidden md:block" />
             </Button>
@@ -450,8 +458,8 @@ export function Header({ className, onMenuClick }) {
                   <AvatarFallback>SC</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-xs text-muted-foreground">john@example.com</p>
+                  <p className="text-sm font-medium">{user?.name}</p>
+                  <p className="text-xs text-muted-foreground">{user?.name}@example.com</p>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -465,7 +473,7 @@ export function Header({ className, onMenuClick }) {
               <span>Settings</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-destructive">
+            <DropdownMenuItem className="cursor-pointer text-destructive" onClick={handleLogout}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
