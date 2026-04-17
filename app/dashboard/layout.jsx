@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { useAuth } from "@/context/auth-context"
+import { RoleRoute } from "@/context/protected-route"
 
 export default function DashboardLayout({
   children,
@@ -46,7 +47,9 @@ export default function DashboardLayout({
 
           {/* Page Content */}
           <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-            {children}
+            <RoleRoute>
+              {children}
+            </RoleRoute>
           </div>
         </div>
       </div>

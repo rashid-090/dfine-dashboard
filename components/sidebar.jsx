@@ -70,6 +70,7 @@ const navigationConfig = {
   ],
   doctor: [
     { title: "Dashboard", icon: Home, href: "/dashboard" },
+    { title: "Create Order", icon: Home, href: "/dashboard/createOrder" },
   ],
 }
 

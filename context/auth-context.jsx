@@ -25,26 +25,27 @@ const ROLE_ROUTES = {
     "/dashboard/staff-details",
     "/dashboard/order",
     "/dashboard/delivery-challan",
-    "/dashboard/bill",
-    "/dashboard/receipt",
+    "/dashboard/bills",
+    "/dashboard/receipts",
     "/dashboard/stock",
   ],
   staff: [
     "/dashboard",
     "/dashboard/order",
     "/dashboard/delivery-challan",
-    "/dashboard/bill",
-    "/dashboard/receipt",
+    "/dashboard/bills",
+    "/dashboard/receipts",
     "/dashboard/stock",
   ],
   doctor: [
     "/dashboard",
+    "/dashboard/createOrder",
   ],
 }
 
 export function hasAccess(role, pathname) {
   const allowedRoutes = ROLE_ROUTES[role] || []
-  return allowedRoutes.some(route => pathname.startsWith(route))
+  return allowedRoutes.includes(pathname)
 }
 
 export function AuthProvider({ children }) {
