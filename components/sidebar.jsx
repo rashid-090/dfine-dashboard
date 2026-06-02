@@ -86,7 +86,7 @@ export function Sidebar({ className, isMobile = false }) {
     e.preventDefault()
     e.stopPropagation()
     setExpandedItems(prev => 
-      prev.includes(title) ? prev.filter(i => i !== title) : [title]
+      prev.includes(title) ? prev.filter(i => i !== title) : [...prev, title]
     )
   }
 

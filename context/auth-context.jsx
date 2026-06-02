@@ -22,6 +22,8 @@ const ROLE_ROUTES = {
     "/dashboard/vendor-details",
     "/dashboard/clinic-details",
     "/dashboard/rate-assignment",
+    "/dashboard/company-profile",
+    "/dashboard/tax-master",
     "/dashboard/staff-details",
     "/dashboard/order",
     "/dashboard/delivery-challan",
