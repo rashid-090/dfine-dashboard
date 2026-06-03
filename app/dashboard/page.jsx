@@ -25,6 +25,7 @@ import {
 } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
 // Sample data with QAR currency
 const statsData = [
@@ -66,12 +67,12 @@ const statsData = [
   },
 ]
 
-const recentTransactions = [
-  { id: 1, customer: "Ahmed Hassan", amount: "QAR 1,250.00", status: "Completed", date: "Today, 10:30 AM" },
-  { id: 2, customer: "Fatima Al-Mohannadi", amount: "QAR 890.50", status: "Pending", date: "Today, 09:45 AM" },
-  { id: 3, customer: "Khalid Rashid", amount: "QAR 2,100.00", status: "Completed", date: "Today, 09:15 AM" },
-  { id: 4, customer: "Mariam Al-Kuwari", amount: "QAR 450.75", status: "Processing", date: "Yesterday" },
-  { id: 5, customer: "Omar Youssef", amount: "QAR 1,680.25", status: "Completed", date: "Yesterday" },
+const technicianData = [
+  { id: 1, name: "Tech. John Doe", assigned: 15, completed: 32 },
+  { id: 2, name: "Tech. Sarah Connor", assigned: 8, completed: 21 },
+  { id: 3, name: "Tech. David Chen", assigned: 12, completed: 35 },
+  { id: 4, name: "Tech. Alice Wong", assigned: 22, completed: 38 },
+  { id: 5, name: "Tech. Michael Scott", assigned: 10, completed: 18 }
 ]
 
 const topProducts = [
@@ -83,11 +84,11 @@ const topProducts = [
 ]
 
 const activityLog = [
-  { id: 1, action: "New order placed", user: "Ahmed Hassan", time: "2 min ago", type: "order" },
-  { id: 2, action: "Payment received", user: "System", time: "15 min ago", type: "payment" },
-  { id: 3, action: "Delivery completed", user: "Khalid Rashid", time: "1 hour ago", type: "delivery" },
-  { id: 4, action: "New user registered", user: "Fatima Al-Mohannadi", time: "2 hours ago", type: "user" },
-  { id: 5, action: "Order shipped", user: "System", time: "3 hours ago", type: "order" },
+  { id: 1, driver: "Bilal Khalid", route: "Route A - West Bay", status: "Products Dispatched", assigned: 15, pending: 5, delivered: 10, time: "10 mins ago" },
+  { id: 2, driver: "Yousuf Khan", route: "Route B - Pearl Qatar", status: "Products Dispatched", assigned: 12, pending: 3, delivered: 9, time: "25 mins ago" },
+  { id: 3, driver: "Khalid Rashid", route: "Route C - Al Khor", status: "Products Dispatched", assigned: 18, pending: 2, delivered: 16, time: "1 hour ago" },
+  { id: 4, driver: "Ahmed Hassan", route: "Route D - Lusail", status: "Products Dispatched", assigned: 10, pending: 4, delivered: 6, time: "2 hours ago" },
+  { id: 5, driver: "Fatima Al-Mohannadi", route: "Route E - Al Wakrah", status: "Products Dispatched", assigned: 14, pending: 1, delivered: 13, time: "3 hours ago" },
 ]
 
 const monthlyData = [
@@ -101,207 +102,149 @@ const monthlyData = [
 
 const tabbedCasesData = {
   ordersReceivedToday: [
-    {
-      id: "ORD-2026-001",
-      clinic: "Doha Dental Center",
-      milling: "In-House Milling A",
-      dentist: "Dr. Sarah Al-Thani",
-      technician: "Tech. John Doe",
-      patient: "Fatima Al-Kuwari",
-      externalLab: "Gulf Premium Lab",
-      status: "Received",
-      statusType: "received"
-    },
-    {
-      id: "ORD-2026-002",
-      clinic: "West Bay Orthodontics",
-      milling: "In-House Milling B",
-      dentist: "Dr. Marcus Vance",
-      technician: "Tech. Sarah Connor",
-      patient: "Hamad Al-Marri",
-      externalLab: "Apex Dental Arts",
-      status: "In Design Queue",
-      statusType: "pending"
-    }
+    { id: "PL-001", work: "Plaster", status: "Pending", no: "PL-101", activeCases: 15, finishedCases: 32 },
+    { id: "AC-001", work: "Acrylic", status: "Finish", no: "AC-202", activeCases: 8, finishedCases: 21 },
+    { id: "ZN-001", work: "Zincron", status: "Pending", no: "ZN-303", activeCases: 24, finishedCases: 50 },
+    { id: "CD-001", work: "CAD", status: "Pending", no: "CD-404", activeCases: 19, finishedCases: 40 },
+    { id: "CM-001", work: "CAM", status: "Finish", no: "CM-505", activeCases: 11, finishedCases: 29 }
   ],
   ordersDeliveredToday: [
-    {
-      id: "ORD-2026-095",
-      clinic: "Al-Ahli Dental",
-      milling: "In-House Milling B",
-      dentist: "Dr. Kareem Ahmed",
-      technician: "Tech. David Chen",
-      patient: "Mariam Al-Baker",
-      externalLab: "None (In-House)",
-      status: "Ready for Delivery",
-      statusType: "ready"
-    },
-    {
-      id: "ORD-2026-088",
-      clinic: "Elite Medical Center",
-      milling: "Speed Milling Qatar",
-      dentist: "Dr. Elena Rostova",
-      technician: "Tech. Michael Scott",
-      patient: "Abdulrahman Al-Thani",
-      externalLab: "Modern Tech Lab",
-      status: "Out for Delivery",
-      statusType: "transit"
-    }
+    { id: "PL-002", work: "Plaster", status: "Finish", no: "PL-102", activeCases: 12, finishedCases: 35 },
+    { id: "AC-002", work: "Acrylic", status: "Pending", no: "AC-203", activeCases: 10, finishedCases: 18 },
+    { id: "ZN-002", work: "Zincron", status: "Finish", no: "ZN-304", activeCases: 20, finishedCases: 55 },
+    { id: "CD-002", work: "CAD", status: "Pending", no: "CD-405", activeCases: 22, finishedCases: 38 },
+    { id: "CM-002", work: "CAM", status: "Pending", no: "CM-506", activeCases: 14, finishedCases: 25 }
   ],
   activeCases: [
-    {
-      id: "ORD-2026-112",
-      clinic: "Pearl Dental Studio",
-      milling: "Milling C",
-      dentist: "Dr. Faisal Rashid",
-      technician: "Tech. Alice Wong",
-      patient: "Nasser Al-Suwaidi",
-      externalLab: "Precision Dental",
-      status: "Designing",
-      statusType: "in-progress"
-    },
-    {
-      id: "ORD-2026-105",
-      clinic: "Royal Clinic",
-      milling: "Milling A",
-      dentist: "Dr. Aisha Al-Jaber",
-      technician: "Tech. Robert Downey",
-      patient: "Salma Al-Naimi",
-      externalLab: "Star Laboratory",
-      status: "Milling",
-      statusType: "in-progress"
-    }
+    { id: "PL-003", work: "Plaster", status: "Pending", no: "PL-103", activeCases: 9, finishedCases: 41 },
+    { id: "AC-003", work: "Acrylic", status: "Pending", no: "AC-204", activeCases: 18, finishedCases: 30 },
+    { id: "ZN-003", work: "Zincron", status: "Finish", no: "ZN-305", activeCases: 15, finishedCases: 48 },
+    { id: "CD-003", work: "CAD", status: "Finish", no: "CD-406", activeCases: 17, finishedCases: 42 },
+    { id: "CM-003", work: "CAM", status: "Pending", no: "CM-507", activeCases: 12, finishedCases: 31 }
   ],
   fittingsCreatedToday: [
-    {
-      id: "FIT-2026-015",
-      clinic: "Aspetar Clinic",
-      milling: "3D Print Lab 1",
-      dentist: "Dr. Khaled Abdulla",
-      technician: "Tech. Bruce Wayne",
-      patient: "Jassim Al-Sada",
-      externalLab: "None",
-      status: "Fitting Fabricated",
-      statusType: "ready"
-    },
-    {
-      id: "FIT-2026-022",
-      clinic: "Al Khor Dental",
-      milling: "In-House Milling A",
-      dentist: "Dr. Mona Al-Kubaisi",
-      technician: "Tech. Peter Parker",
-      patient: "Dana Al-Mulla",
-      externalLab: "Crown Arts Lab",
-      status: "Design Approved",
-      statusType: "in-progress"
-    }
+    { id: "PL-004", work: "Plaster", status: "Finish", no: "PL-104", activeCases: 18, finishedCases: 28 },
+    { id: "AC-004", work: "Acrylic", status: "Finish", no: "AC-205", activeCases: 11, finishedCases: 23 },
+    { id: "ZN-004", work: "Zincron", status: "Pending", no: "ZN-306", activeCases: 26, finishedCases: 44 },
+    { id: "CD-004", work: "CAD", status: "Pending", no: "CD-407", activeCases: 21, finishedCases: 36 },
+    { id: "CM-004", work: "CAM", status: "Finish", no: "CM-508", activeCases: 10, finishedCases: 30 }
   ],
   fittingsDeliveredToday: [
-    {
-      id: "FIT-2026-009",
-      clinic: "Qatar Ortho Clinic",
-      milling: "In-House 3D Print",
-      dentist: "Dr. Yousef Al-Harami",
-      technician: "Tech. Clark Kent",
-      patient: "Abdullah Al-Sulaiti",
-      externalLab: "OrthoTech Labs",
-      status: "Quality Checked",
-      statusType: "ready"
-    },
-    {
-      id: "FIT-2026-004",
-      clinic: "Doha Premium Dentistry",
-      milling: "In-House Milling B",
-      dentist: "Dr. Layla Al-Masri",
-      technician: "Tech. Diana Prince",
-      patient: "Hassan Al-Jefairi",
-      externalLab: "None",
-      status: "Ready for Pickup",
-      statusType: "ready"
-    }
+    { id: "PL-005", work: "Plaster", status: "Finish", no: "PL-105", activeCases: 14, finishedCases: 34 },
+    { id: "AC-005", work: "Acrylic", status: "Pending", no: "AC-206", activeCases: 13, finishedCases: 19 },
+    { id: "ZN-005", work: "Zincron", status: "Finish", no: "ZN-307", activeCases: 22, finishedCases: 51 },
+    { id: "CD-005", work: "CAD", status: "Finish", no: "CD-408", activeCases: 16, finishedCases: 44 },
+    { id: "CM-005", work: "CAM", status: "Pending", no: "CM-509", activeCases: 8, finishedCases: 27 }
   ],
   ordersPastDue: [
-    {
-      id: "ORD-2026-077",
-      clinic: "West Bay Dental Clinic",
-      milling: "External Milling A",
-      dentist: "Dr. Jean-Pierre",
-      technician: "Tech. Logan Howlett",
-      patient: "Saad Al-Khalfan",
-      externalLab: "Elite Dental Lab",
-      status: "Delayed - Material",
-      statusType: "alert"
-    },
-    {
-      id: "ORD-2026-065",
-      clinic: "Lusail Smile Center",
-      milling: "Milling B",
-      dentist: "Dr. Noora Al-Subaey",
-      technician: "Tech. Tony Stark",
-      patient: "Lulwa Al-Sowaidi",
-      externalLab: "Vinci Lab",
-      status: "Delayed - Revision",
-      statusType: "alert"
-    }
+    { id: "PL-006", work: "Plaster", status: "Pending", no: "PL-106", activeCases: 11, finishedCases: 29 },
+    { id: "AC-006", work: "Acrylic", status: "Pending", no: "AC-207", activeCases: 12, finishedCases: 17 },
+    { id: "ZN-006", work: "Zincron", status: "Pending", no: "ZN-308", activeCases: 28, finishedCases: 46 }
   ],
   fittingsPastDue: [
-    {
-      id: "FIT-2026-001",
-      clinic: "Smile Signature",
-      milling: "3D Print Lab 2",
-      dentist: "Dr. George Clooney",
-      technician: "Tech. Steve Rogers",
-      patient: "Fahad Al-Marzooqi",
-      externalLab: "Signature Lab",
-      status: "Delayed - Adjustment",
-      statusType: "alert"
-    },
-    {
-      id: "FIT-2026-003",
-      clinic: "Wakra Dental",
-      milling: "In-House Milling A",
-      dentist: "Dr. Yasmin Al-Ansari",
-      technician: "Tech. Natasha Romanoff",
-      patient: "Sara Al-Khori",
-      externalLab: "None",
-      status: "Delayed - Backlog",
-      statusType: "alert"
-    }
+    { id: "CD-006", work: "CAD", status: "Pending", no: "CD-409", activeCases: 19, finishedCases: 39 },
+    { id: "CM-006", work: "CAM", status: "Pending", no: "CM-510", activeCases: 15, finishedCases: 28 },
+    { id: "PL-007", work: "Plaster", status: "Pending", no: "PL-107", activeCases: 8, finishedCases: 30 }
   ],
   drivers: [
-    {
-      id: "DRV-2026-001",
-      clinic: "Al-Ahli Dental Clinic",
-      milling: "Route A - Driver: Bilal Khalid",
-      dentist: "Dr. Kareem Ahmed",
-      technician: "Tech. David Chen",
-      patient: "Mariam Al-Baker",
-      externalLab: "Modern Tech Lab",
-      status: "Out for Delivery",
-      statusType: "transit"
-    },
-    {
-      id: "DRV-2026-002",
-      clinic: "Pearl Dental Studio",
-      milling: "Route B - Driver: Yousuf Khan",
-      dentist: "Dr. Faisal Rashid",
-      technician: "Tech. Alice Wong",
-      patient: "Nasser Al-Suwaidi",
-      externalLab: "None (In-House)",
-      status: "Delivered",
-      statusType: "ready"
-    },
-    {
-      id: "DRV-2026-003",
-      clinic: "West Bay Orthodontics",
-      milling: "Route C - Driver: Bilal Khalid",
-      dentist: "Dr. Marcus Vance",
-      technician: "Tech. Sarah Connor",
-      patient: "Hamad Al-Marri",
-      externalLab: "Apex Dental Arts",
-      status: "Scheduled",
-      statusType: "pending"
-    }
+    { id: "ZN-007", work: "Zincron", status: "Finish", no: "ZN-309", activeCases: 21, finishedCases: 49 },
+    { id: "CD-007", work: "CAD", status: "Finish", no: "CD-410", activeCases: 18, finishedCases: 35 },
+    { id: "CM-007", work: "CAM", status: "Pending", no: "CM-511", activeCases: 13, finishedCases: 24 }
+  ]
+}
+
+const workDetailsCases = {
+  Plaster: [
+    { no: "PL-101", clinic: "Doha Dental Center", patient: "Fatima Al-Kuwari", dentist: "Dr. Sarah Al-Thani", technician: "Tech. John Doe", status: "Pending" },
+    { no: "PL-102", clinic: "West Bay Ortho", patient: "Hamad Al-Marri", dentist: "Dr. Marcus Vance", technician: "Tech. Sarah Connor", status: "Finish" },
+    { no: "PL-103", clinic: "Al-Ahli Dental", patient: "Mariam Al-Baker", dentist: "Dr. Kareem Ahmed", technician: "Tech. David Chen", status: "Pending" },
+    { no: "PL-104", clinic: "Pearl Dental Studio", patient: "Nasser Al-Suwaidi", dentist: "Dr. Faisal Rashid", technician: "Tech. Alice Wong", status: "Finish" },
+    { no: "PL-105", clinic: "Elite Medical Center", patient: "Abdulrahman Al-Thani", dentist: "Dr. Elena Rostova", technician: "Tech. Michael Scott", status: "Finish" },
+    { no: "PL-106", clinic: "Royal Clinic", patient: "Salma Al-Naimi", dentist: "Dr. Aisha Al-Jaber", technician: "Tech. Robert Downey", status: "Pending" },
+    { no: "PL-107", clinic: "Aspetar Clinic", patient: "Jassim Al-Sada", dentist: "Dr. Khaled Abdulla", technician: "Tech. Bruce Wayne", status: "Finish" },
+    { no: "PL-108", clinic: "Al Khor Dental", patient: "Dana Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", technician: "Tech. Peter Parker", status: "Pending" },
+    { no: "PL-109", clinic: "Qatar Ortho Clinic", patient: "Abdullah Al-Sulaiti", dentist: "Dr. Yousef Al-Harami", technician: "Tech. Clark Kent", status: "Finish" },
+    { no: "PL-110", clinic: "Doha Premium Dentistry", patient: "Hassan Al-Jefairi", dentist: "Dr. Layla Al-Masri", technician: "Tech. Diana Prince", status: "Finish" }
+  ],
+  Acrylic: [
+    { no: "AC-201", clinic: "Smile Signature", patient: "Fahad Al-Marzooqi", dentist: "Dr. George Clooney", technician: "Tech. Steve Rogers", status: "Pending" },
+    { no: "AC-202", clinic: "Wakra Dental", patient: "Sara Al-Khori", dentist: "Dr. Yasmin Al-Ansari", technician: "Tech. Natasha Romanoff", status: "Finish" },
+    { no: "AC-203", clinic: "Doha Dental Center", patient: "Amina Al-Kuwari", dentist: "Dr. Sarah Al-Thani", technician: "Tech. John Doe", status: "Finish" },
+    { no: "AC-204", clinic: "West Bay Ortho", patient: "Salem Al-Marri", dentist: "Dr. Marcus Vance", technician: "Tech. Sarah Connor", status: "Pending" },
+    { no: "AC-205", clinic: "Al-Ahli Dental", patient: "Fatma Al-Baker", dentist: "Dr. Kareem Ahmed", technician: "Tech. David Chen", status: "Finish" },
+    { no: "AC-206", clinic: "Pearl Dental Studio", patient: "Khalid Al-Suwaidi", dentist: "Dr. Faisal Rashid", technician: "Tech. Alice Wong", status: "Pending" },
+    { no: "AC-207", clinic: "Elite Medical Center", patient: "Reem Al-Thani", dentist: "Dr. Elena Rostova", technician: "Tech. Michael Scott", status: "Finish" },
+    { no: "AC-208", clinic: "Royal Clinic", patient: "Ahmed Al-Naimi", dentist: "Dr. Aisha Al-Jaber", technician: "Tech. Robert Downey", status: "Finish" },
+    { no: "AC-209", clinic: "Aspetar Clinic", patient: "Faisal Al-Sada", dentist: "Dr. Khaled Abdulla", technician: "Tech. Bruce Wayne", status: "Pending" },
+    { no: "AC-210", clinic: "Al Khor Dental", patient: "Noura Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", technician: "Tech. Peter Parker", status: "Finish" }
+  ],
+  Zincron: [
+    { no: "ZN-301", clinic: "Al-Ahli Dental", patient: "Ali Al-Baker", dentist: "Dr. Kareem Ahmed", technician: "Tech. David Chen", status: "Pending" },
+    { no: "ZN-302", clinic: "Pearl Dental Studio", patient: "Dana Al-Suwaidi", dentist: "Dr. Faisal Rashid", technician: "Tech. Alice Wong", status: "Finish" },
+    { no: "ZN-303", clinic: "Elite Medical Center", patient: "Mohammed Al-Thani", dentist: "Dr. Elena Rostova", technician: "Tech. Michael Scott", status: "Pending" },
+    { no: "ZN-304", clinic: "Royal Clinic", patient: "Saif Al-Naimi", dentist: "Dr. Aisha Al-Jaber", technician: "Tech. Robert Downey", status: "Finish" },
+    { no: "ZN-305", clinic: "Aspetar Clinic", patient: "Hessa Al-Sada", dentist: "Dr. Khaled Abdulla", technician: "Tech. Bruce Wayne", status: "Finish" },
+    { no: "ZN-306", clinic: "Al Khor Dental", patient: "Jassim Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", technician: "Tech. Peter Parker", status: "Pending" },
+    { no: "ZN-307", clinic: "Qatar Ortho Clinic", patient: "Lulwa Al-Sulaiti", dentist: "Dr. Yousef Al-Harami", technician: "Tech. Clark Kent", status: "Finish" },
+    { no: "ZN-308", clinic: "Doha Premium Dentistry", patient: "Abdulaziz Al-Jefairi", dentist: "Dr. Layla Al-Masri", technician: "Tech. Diana Prince", status: "Finish" },
+    { no: "ZN-309", clinic: "Smile Signature", patient: "Jaber Al-Marzooqi", dentist: "Dr. George Clooney", technician: "Tech. Steve Rogers", status: "Pending" },
+    { no: "ZN-310", clinic: "Wakra Dental", patient: "Rawda Al-Khori", dentist: "Dr. Yasmin Al-Ansari", technician: "Tech. Natasha Romanoff", status: "Finish" }
+  ],
+  CAD: [
+    { no: "CD-401", clinic: "Pearl Dental Studio", patient: "Saad Al-Suwaidi", dentist: "Dr. Faisal Rashid", technician: "Tech. Alice Wong", status: "Pending" },
+    { no: "CD-402", clinic: "Royal Clinic", patient: "Mona Al-Naimi", dentist: "Dr. Aisha Al-Jaber", technician: "Tech. Robert Downey", status: "Finish" },
+    { no: "CD-403", clinic: "Aspetar Clinic", patient: "Mansoor Al-Sada", dentist: "Dr. Khaled Abdulla", technician: "Tech. Bruce Wayne", status: "Finish" },
+    { no: "CD-404", clinic: "Al Khor Dental", patient: "Nasser Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", technician: "Tech. Peter Parker", status: "Pending" },
+    { no: "CD-405", clinic: "Qatar Ortho Clinic", patient: "Latifa Al-Sulaiti", dentist: "Dr. Yousef Al-Harami", technician: "Tech. Clark Kent", status: "Finish" },
+    { no: "CD-406", clinic: "Doha Premium Dentistry", patient: "Fahad Al-Jefairi", dentist: "Dr. Layla Al-Masri", technician: "Tech. Diana Prince", status: "Finish" },
+    { no: "CD-407", clinic: "Smile Signature", patient: "Amal Al-Marzooqi", dentist: "Dr. George Clooney", technician: "Tech. Steve Rogers", status: "Pending" },
+    { no: "CD-408", clinic: "Wakra Dental", patient: "Othman Al-Khori", dentist: "Dr. Yasmin Al-Ansari", technician: "Tech. Natasha Romanoff", status: "Finish" },
+    { no: "CD-409", clinic: "Doha Dental Center", patient: "Sheikha Al-Kuwari", dentist: "Dr. Sarah Al-Thani", technician: "Tech. John Doe", status: "Pending" },
+    { no: "CD-410", clinic: "West Bay Ortho", patient: "Jaber Al-Marri", dentist: "Dr. Marcus Vance", technician: "Tech. Sarah Connor", status: "Finish" }
+  ],
+  CAM: [
+    { no: "CM-501", clinic: "Royal Clinic", patient: "Soud Al-Naimi", dentist: "Dr. Aisha Al-Jaber", technician: "Tech. Robert Downey", status: "Pending" },
+    { no: "CM-502", clinic: "Aspetar Clinic", patient: "Ghanim Al-Sada", dentist: "Dr. Khaled Abdulla", technician: "Tech. Bruce Wayne", status: "Finish" },
+    { no: "CM-503", clinic: "Al Khor Dental", patient: "Sarah Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", technician: "Tech. Peter Parker", status: "Finish" },
+    { no: "CM-504", clinic: "Qatar Ortho Clinic", patient: "Hassan Al-Sulaiti", dentist: "Dr. Yousef Al-Harami", technician: "Tech. Clark Kent", status: "Pending" },
+    { no: "CM-505", clinic: "Doha Premium Dentistry", patient: "Reem Al-Jefairi", dentist: "Dr. Layla Al-Masri", technician: "Tech. Diana Prince", status: "Finish" },
+    { no: "CM-506", clinic: "Smile Signature", patient: "Hamad Al-Marzooqi", dentist: "Dr. George Clooney", technician: "Tech. Steve Rogers", status: "Finish" },
+    { no: "CM-507", clinic: "Wakra Dental", patient: "Noura Al-Khori", dentist: "Dr. Yasmin Al-Ansari", technician: "Tech. Natasha Romanoff", status: "Pending" },
+    { no: "CM-508", clinic: "Doha Dental Center", patient: "Wafa Al-Kuwari", dentist: "Dr. Sarah Al-Thani", technician: "Tech. John Doe", status: "Finish" },
+    { no: "CM-509", clinic: "West Bay Ortho", patient: "Saif Al-Marri", dentist: "Dr. Marcus Vance", technician: "Tech. Sarah Connor", status: "Finish" },
+    { no: "CM-510", clinic: "Al-Ahli Dental", patient: "Lulwa Al-Baker", dentist: "Dr. Kareem Ahmed", technician: "Tech. David Chen", status: "Pending" }
+  ]
+}
+
+const driverDetailsCases = {
+  "Bilal Khalid": [
+    { no: "DF-801", clinic: "Pearl Dental Studio", patient: "Fatima Al-Suwaidi", dentist: "Dr. Faisal Rashid", status: "Delivered", time: "09:30 AM" },
+    { no: "DF-802", clinic: "Elite Medical Center", patient: "Hamad Al-Marri", dentist: "Dr. Elena Rostova", status: "Delivered", time: "10:15 AM" },
+    { no: "DF-803", clinic: "Smile Signature", patient: "Khalid Al-Marri", dentist: "Dr. George Clooney", status: "Pending", time: "11:45 AM" },
+    { no: "DF-804", clinic: "West Bay Ortho", patient: "Jassim Al-Marri", dentist: "Dr. Marcus Vance", status: "Assigned", time: "01:30 PM" },
+    { no: "DF-805", clinic: "Aspetar Clinic", patient: "Aisha Al-Thani", dentist: "Dr. Khaled Abdulla", status: "Assigned", time: "02:00 PM" }
+  ],
+  "Yousuf Khan": [
+    { no: "DF-811", clinic: "Doha Dental Center", patient: "Ali Al-Baker", dentist: "Dr. Sarah Al-Thani", status: "Delivered", time: "08:45 AM" },
+    { no: "DF-812", clinic: "Al-Ahli Dental", patient: "Mariam Al-Kuwari", dentist: "Dr. Kareem Ahmed", status: "Delivered", time: "10:30 AM" },
+    { no: "DF-813", clinic: "Qatar Ortho Clinic", patient: "Salem Al-Marri", dentist: "Dr. Yousef Al-Harami", status: "Pending", time: "01:00 PM" },
+    { no: "DF-814", clinic: "Royal Clinic", patient: "Saif Al-Naimi", dentist: "Dr. Aisha Al-Jaber", status: "Assigned", time: "03:15 PM" }
+  ],
+  "Khalid Rashid": [
+    { no: "DF-821", clinic: "Wakra Dental", patient: "Sara Al-Khori", dentist: "Dr. Yasmin Al-Ansari", status: "Delivered", time: "09:00 AM" },
+    { no: "DF-822", clinic: "Al Khor Dental", patient: "Noura Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", status: "Delivered", time: "11:00 AM" },
+    { no: "DF-823", clinic: "Doha Premium Dentistry", patient: "Fahad Al-Jefairi", dentist: "Dr. Layla Al-Masri", status: "Delivered", time: "01:30 PM" }
+  ],
+  "Ahmed Hassan": [
+    { no: "DF-831", clinic: "Royal Clinic", patient: "Mona Al-Naimi", dentist: "Dr. Aisha Al-Jaber", status: "Pending", time: "10:00 AM" },
+    { no: "DF-832", clinic: "Smile Signature", patient: "Amal Al-Marzooqi", dentist: "Dr. George Clooney", status: "Pending", time: "11:30 AM" },
+    { no: "DF-833", clinic: "Pearl Dental Studio", patient: "Saad Al-Suwaidi", dentist: "Dr. Faisal Rashid", status: "Assigned", time: "02:45 PM" }
+  ],
+  "Fatima Al-Mohannadi": [
+    { no: "DF-841", clinic: "Elite Medical Center", patient: "Reem Al-Thani", dentist: "Dr. Elena Rostova", status: "Delivered", time: "08:15 AM" },
+    { no: "DF-842", clinic: "Aspetar Clinic", patient: "Mansoor Al-Sada", dentist: "Dr. Khaled Abdulla", status: "Delivered", time: "09:45 AM" },
+    { no: "DF-843", clinic: "Al Khor Dental", patient: "Dana Al-Mulla", dentist: "Dr. Mona Al-Kubaisi", status: "Pending", time: "12:15 PM" },
+    { no: "DF-844", clinic: "West Bay Ortho", patient: "Sara Al-Kuwari", dentist: "Dr. Marcus Vance", status: "Assigned", time: "03:30 PM" }
   ]
 }
 
@@ -379,10 +322,23 @@ const tabNames = {
   drivers: "Drivers"
 }
 
+const shortTabNames = {
+  ordersReceivedToday: "Received",
+  ordersDeliveredToday: "To Deliver",
+  activeCases: "Active",
+  fittingsCreatedToday: "Created",
+  fittingsDeliveredToday: "To Pick",
+  ordersPastDue: "Ord Past",
+  fittingsPastDue: "Fit Past",
+  drivers: "Drivers"
+}
+
 function DashboardPage() {
   const [mounted, setMounted] = React.useState(false)
   const [dateRange, setDateRange] = React.useState({ from: undefined, to: undefined })
   const [casesData, setCasesData] = React.useState(tabbedCasesData)
+  const [selectedWork, setSelectedWork] = React.useState(null)
+  const [selectedDriver, setSelectedDriver] = React.useState(null)
 
   const handleMoveRow = (rowId, sourceTab, targetTab) => {
     if (sourceTab === targetTab) return
@@ -394,45 +350,10 @@ function DashboardPage() {
       
       if (!itemToMove) return prev
 
-      let updatedStatus = itemToMove.status
-      let updatedStatusType = itemToMove.statusType
-
-      if (targetTab === "ordersReceivedToday") {
-        updatedStatus = "Received"
-        updatedStatusType = "received"
-      } else if (targetTab === "ordersDeliveredToday") {
-        updatedStatus = "Out for Delivery"
-        updatedStatusType = "transit"
-      } else if (targetTab === "activeCases") {
-        updatedStatus = "Milling"
-        updatedStatusType = "in-progress"
-      } else if (targetTab === "fittingsCreatedToday") {
-        updatedStatus = "Fitting Fabricated"
-        updatedStatusType = "ready"
-      } else if (targetTab === "fittingsDeliveredToday") {
-        updatedStatus = "Ready for Pickup"
-        updatedStatusType = "ready"
-      } else if (targetTab === "ordersPastDue") {
-        updatedStatus = "Delayed - Material"
-        updatedStatusType = "alert"
-      } else if (targetTab === "fittingsPastDue") {
-        updatedStatus = "Delayed - Adjustment"
-        updatedStatusType = "alert"
-      } else if (targetTab === "drivers") {
-        updatedStatus = "Out for Delivery"
-        updatedStatusType = "transit"
-      }
-
-      const updatedItem = {
-        ...itemToMove,
-        status: updatedStatus,
-        statusType: updatedStatusType
-      }
-
       return {
         ...prev,
         [sourceTab]: sourceList.filter(item => item.id !== rowId),
-        [targetTab]: [updatedItem, ...targetList]
+        [targetTab]: [itemToMove, ...targetList]
       }
     })
   }
@@ -475,6 +396,17 @@ function DashboardPage() {
   }
 
   const maxRevenue = Math.max(...monthlyData.map(d => d.revenue))
+
+  const chartData = Object.entries(casesData).map(([key, list]) => ({
+    key,
+    name: shortTabNames[key] || key,
+    fullName: tabNames[key] || key,
+    count: list.length
+  }))
+
+  const maxCaseCount = Math.max(...chartData.map(d => d.count), 1)
+  const totalCases = chartData.reduce((acc, curr) => acc + curr.count, 0)
+  const avgCases = (totalCases / chartData.length).toFixed(1)
 
   // Format date range for display
   const formatDateRange = () => {
@@ -625,18 +557,15 @@ function DashboardPage() {
                   <Table>
                     <TableHeader className="bg-muted/40">
                       <TableRow>
-                        <TableHead className="pl-6 py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Clinic / Milling</TableHead>
-                        <TableHead className="py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Dentist / Technician</TableHead>
-                        <TableHead className="py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Patient</TableHead>
-                        <TableHead className="py-3 font-semibold text-foreground text-xs uppercase tracking-wider">External Laboratory</TableHead>
-                        <TableHead className="py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Assign Department</TableHead>
-                        <TableHead className="pr-6 py-3 text-right font-semibold text-foreground text-xs uppercase tracking-wider">Order Status</TableHead>
+                        <TableHead className="pl-6 py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Works</TableHead>
+                        <TableHead className="py-3 font-semibold text-foreground text-xs uppercase tracking-wider">Status</TableHead>
+                        <TableHead className="pr-6 py-3 text-right font-semibold text-foreground text-xs uppercase tracking-wider">Assign Department</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {rows.length === 0 ? (
                         <TableRow>
-                          <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                          <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
                             No cases found in this category.
                           </TableCell>
                         </TableRow>
@@ -644,36 +573,32 @@ function DashboardPage() {
                         rows.map((row) => (
                           <TableRow key={row.id} className="hover:bg-muted/30 transition-colors">
                             <TableCell className="pl-6 py-4">
-                              <div className="font-medium text-sm text-foreground">{row.clinic}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40"></span>
-                                {row.milling}
-                              </div>
+                              <span 
+                                onClick={() => setSelectedWork(row)} 
+                                className="font-semibold text-main hover:underline cursor-pointer transition-all text-sm"
+                              >
+                                {row.work}
+                              </span>
                             </TableCell>
                             <TableCell className="py-4">
-                              <div className="font-medium text-sm text-foreground">{row.dentist}</div>
-                              <div className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40"></span>
-                                {row.technician}
-                              </div>
+                              <span className={cn(
+                                "text-xs font-semibold px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5",
+                                row.status === "Pending" && "bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-900/30 dark:text-amber-400",
+                                row.status === "Finish" && "bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/30 dark:text-emerald-400"
+                              )}>
+                                <span className={cn(
+                                  "w-1.5 h-1.5 rounded-full",
+                                  row.status === "Pending" && "bg-amber-500",
+                                  row.status === "Finish" && "bg-emerald-500"
+                                )}></span>
+                                {row.status}
+                              </span>
                             </TableCell>
-                            <TableCell className="py-4">
-                              <div className="flex items-center gap-2">
-                                <Avatar className="h-6 w-6 text-[10px]">
-                                  <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${row.patient}`} alt={row.patient} />
-                                  <AvatarFallback>{row.patient.charAt(0)}</AvatarFallback>
-                                </Avatar>
-                                <span className="text-sm font-medium text-foreground">{row.patient}</span>
-                              </div>
-                            </TableCell>
-                            <TableCell className="py-4">
-                              <span className="text-sm text-foreground">{row.externalLab}</span>
-                            </TableCell>
-                            <TableCell className="py-4">
+                            <TableCell className="pr-6 py-4 text-right">
                               <select
                                 value={tabKey}
                                 onChange={(e) => handleMoveRow(row.id, tabKey, e.target.value)}
-                                className="text-xs bg-background hover:bg-muted text-foreground border border-input rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-main cursor-pointer font-medium transition-all max-w-[180px]"
+                                className="text-xs bg-background hover:bg-muted text-foreground border border-input rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-main cursor-pointer font-medium transition-all max-w-[180px] inline-block text-left"
                               >
                                 {Object.entries(tabNames).map(([key, label]) => (
                                   <option key={key} value={key}>
@@ -681,28 +606,6 @@ function DashboardPage() {
                                   </option>
                                 ))}
                               </select>
-                            </TableCell>
-                            <TableCell className="pr-6 py-4 text-right">
-                              <span className={cn(
-                                "text-xs font-semibold px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5",
-                                row.statusType === "received" && "bg-blue-50 text-blue-700 border-blue-200/50 dark:bg-blue-900/30 dark:text-blue-400",
-                                row.statusType === "pending" && "bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-900/30 dark:text-amber-400",
-                                row.statusType === "in-progress" && "bg-indigo-50 text-indigo-700 border-indigo-200/50 dark:bg-indigo-900/30 dark:text-indigo-400",
-                                row.statusType === "ready" && "bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/30 dark:text-emerald-400",
-                                row.statusType === "transit" && "bg-teal-50 text-teal-700 border-teal-200/50 dark:bg-teal-900/30 dark:text-teal-400",
-                                row.statusType === "alert" && "bg-rose-50 text-rose-700 border-rose-200/50 dark:bg-rose-900/30 dark:text-rose-400"
-                              )}>
-                                <span className={cn(
-                                  "w-1.5 h-1.5 rounded-full",
-                                  row.statusType === "received" && "bg-blue-500",
-                                  row.statusType === "pending" && "bg-amber-500",
-                                  row.statusType === "in-progress" && "bg-indigo-500",
-                                  row.statusType === "ready" && "bg-emerald-500",
-                                  row.statusType === "transit" && "bg-teal-500",
-                                  row.statusType === "alert" && "bg-rose-500"
-                                )}></span>
-                                {row.status}
-                              </span>
                             </TableCell>
                           </TableRow>
                         ))
@@ -829,61 +732,70 @@ function DashboardPage() {
 
       {/* Charts and Tables Row */}
       <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
-        {/* Revenue Chart */}
+        {/* Department Cases Chart */}
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Revenue Overview</CardTitle>
-            <CardDescription>Monthly revenue performance</CardDescription>
+            <CardTitle>Department Cases Overview</CardTitle>
+            <CardDescription>Active case load across all workflow departments</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="h-[250px] flex items-end justify-between gap-2">
-              {monthlyData.map((data, index) => (
-                <div key={index} className="flex-1 flex flex-col items-center gap-2">
-                  <div 
-                    className="w-full bg-main rounded-t-md transition-all hover:bg-mainhvr"
-                    style={{ height: `${(data.revenue / maxRevenue) * 200}px` }}
-                  />
-                  <div className="text-xs text-muted-foreground">{data.month}</div>
-                </div>
-              ))}
+            <div className="h-[250px] flex items-end justify-between gap-4 px-2 border-b border-border pb-2">
+              {chartData.map((data, index) => {
+                const isPastDue = data.key === "ordersPastDue" || data.key === "fittingsPastDue"
+                return (
+                  <div key={index} className="flex-1 flex flex-col items-center gap-2 group cursor-pointer" title={data.fullName}>
+                    <div className="text-xs font-bold text-muted-foreground group-hover:text-foreground transition-colors mb-1">
+                      {data.count}
+                    </div>
+                    <div 
+                      className={cn(
+                        "w-full rounded-t-md transition-all duration-300",
+                        isPastDue 
+                          ? "bg-rose-500 hover:bg-rose-600 dark:bg-rose-600 dark:hover:bg-rose-700" 
+                          : "bg-main hover:bg-mainhvr"
+                      )}
+                      style={{ height: `${(data.count / maxCaseCount) * 160}px`, minHeight: data.count > 0 ? "4px" : "0px" }}
+                    />
+                    <div className="text-[10px] font-semibold text-muted-foreground group-hover:text-foreground transition-colors truncate max-w-full text-center mt-1">
+                      {data.name}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-            <div className="flex justify-between mt-4 text-sm text-muted-foreground">
-              <span>Total: QAR 328,000</span>
-              <span>Avg: QAR 54,667/month</span>
+            <div className="flex justify-between mt-4 text-xs font-medium text-muted-foreground">
+              <span>Total Cases: <strong className="text-foreground">{totalCases}</strong></span>
+              <span>Average Cases: <strong className="text-foreground">{avgCases}</strong>/department</span>
             </div>
           </CardContent>
         </Card>
 
-        {/* Recent Transactions */}
+        {/* Technician Overview */}
         <Card>
           <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
-            <CardDescription>Latest customer orders</CardDescription>
+            <CardTitle>Technician Overview</CardTitle>
+            <CardDescription>Case assignment and completion statistics</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentTransactions.map((transaction) => (
-                <div key={transaction.id} className="flex items-center justify-between">
+              {technicianData.map((tech) => (
+                <div key={tech.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${transaction.customer}`} alt="Avatar" />
-                      <AvatarFallback>{transaction.customer.charAt(0)}</AvatarFallback>
+                      <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${tech.name}`} alt="Avatar" />
+                      <AvatarFallback>{tech.name.replace("Tech. ", "").charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium">{transaction.customer}</p>
-                      <p className="text-xs text-muted-foreground">{transaction.date}</p>
+                      <p className="text-sm font-medium text-foreground">{tech.name}</p>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        {tech.assigned} Assigned
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium">{transaction.amount}</p>
-                    <span className={cn(
-                      "text-xs px-2 py-0.5 rounded-full",
-                      transaction.status === "Completed" && "bg-emerald-100 text-emerald-700",
-                      transaction.status === "Pending" && "bg-yellow-100 text-yellow-700",
-                      transaction.status === "Processing" && "bg-blue-100 text-blue-700"
-                    )}>
-                      {transaction.status}
-                    </span>
+                    <p className="text-sm font-semibold text-main">{tech.completed} Finished</p>
+                    <span className="text-[10px] text-muted-foreground font-medium">Completed cases</span>
                   </div>
                 </div>
               ))}
@@ -924,22 +836,35 @@ function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest system events</CardDescription>
+            <CardDescription>Driver status details after products dispatched</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {activityLog.map((activity) => (
-                <div key={activity.id} className="flex items-start gap-3">
-                  <div className={cn(
-                    "w-2 h-2 rounded-full mt-2",
-                    activity.type === "order" && "bg-blue-500",
-                    activity.type === "payment" && "bg-emerald-500",
-                    activity.type === "delivery" && "bg-purple-500",
-                    activity.type === "user" && "bg-orange-500"
-                  )} />
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">{activity.action}</p>
-                    <p className="text-xs text-muted-foreground">{activity.user} • {activity.time}</p>
+                <div 
+                  key={activity.id} 
+                  className="flex items-start gap-3 p-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                  onClick={() => setSelectedDriver(activity)}
+                >
+                  <div className="w-2 h-2 rounded-full mt-2 bg-purple-500 shrink-0" />
+                  <div className="flex-1 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                    <div>
+                      <p className="text-sm font-medium text-foreground">{activity.driver}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {activity.route ? `${activity.route} • ` : ""}{activity.status} • {activity.time}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 text-[10px] font-bold shrink-0">
+                      <span className="bg-blue-50 text-blue-700 dark:bg-blue-950/20 dark:text-blue-400 px-2 py-0.5 rounded border border-blue-200/50">
+                        {activity.assigned} Assigned
+                      </span>
+                      <span className="bg-amber-50 text-amber-700 dark:bg-amber-950/20 dark:text-amber-400 px-2 py-0.5 rounded border border-amber-200/50">
+                        {activity.pending} Pending
+                      </span>
+                      <span className="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/20 dark:text-emerald-400 px-2 py-0.5 rounded border border-emerald-200/50">
+                        {activity.delivered} Delivered
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -947,6 +872,185 @@ function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      <Dialog open={!!selectedWork} onOpenChange={(open) => !open && setSelectedWork(null)}>
+        <DialogContent className="max-w-4xl sm:max-w-[850px] p-6 bg-background border border-border rounded-lg shadow-2xl overflow-y-auto max-h-[90vh]">
+          <DialogHeader className="border-b pb-3 mb-4">
+            <DialogTitle className="text-xl font-bold text-main flex items-center gap-2">
+              <Activity className="h-5 w-5" /> Work Specifications & Cases List
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              Detailed history and tracking log for the selected work department.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedWork && (
+            <div className="space-y-4">
+              <div className="flex justify-between items-center py-2 bg-muted/45 px-4 rounded-lg border border-border">
+                <div>
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider block">Work Type</span>
+                  <span className="text-lg font-bold text-main">{selectedWork.work}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider block">Department Overall Status</span>
+                  <span className={cn(
+                    "text-xs font-semibold px-2.5 py-1 rounded-full border inline-flex items-center gap-1.5 mt-1",
+                    selectedWork.status === "Pending" && "bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-900/30 dark:text-amber-400",
+                    selectedWork.status === "Finish" && "bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/30 dark:text-emerald-400"
+                  )}>
+                    <span className={cn(
+                      "w-1.5 h-1.5 rounded-full",
+                      selectedWork.status === "Pending" && "bg-amber-500",
+                      selectedWork.status === "Finish" && "bg-emerald-500"
+                    )}></span>
+                    {selectedWork.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="overflow-x-auto rounded-lg border border-border">
+                <Table>
+                  <TableHeader className="bg-muted/40">
+                    <TableRow>
+                      <TableHead className="pl-4 py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Case No</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Clinic</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Patient</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Dentist / Tech</TableHead>
+                      <TableHead className="pr-4 py-2 text-right font-semibold text-foreground text-xs uppercase tracking-wider">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {(workDetailsCases[selectedWork.work] || []).map((caseRow) => (
+                      <TableRow key={caseRow.no} className="hover:bg-muted/30 transition-colors">
+                        <TableCell className="pl-4 py-3 font-mono text-xs text-main font-semibold">{caseRow.no}</TableCell>
+                        <TableCell className="py-3 text-xs font-medium text-foreground">{caseRow.clinic}</TableCell>
+                        <TableCell className="py-3 text-xs text-foreground">{caseRow.patient}</TableCell>
+                        <TableCell className="py-3 text-xs text-muted-foreground">
+                          <div className="text-foreground font-medium">{caseRow.dentist}</div>
+                          <div className="text-[10px]">{caseRow.technician}</div>
+                        </TableCell>
+                        <TableCell className="pr-4 py-3 text-right">
+                          <span className={cn(
+                            "text-[10px] font-semibold px-2 py-0.5 rounded-full border inline-flex items-center gap-1",
+                            caseRow.status === "Pending" && "bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-900/30 dark:text-amber-400",
+                            caseRow.status === "Finish" && "bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/30 dark:text-emerald-400"
+                          )}>
+                            <span className={cn(
+                              "w-1 h-1 rounded-full",
+                              caseRow.status === "Pending" && "bg-amber-500",
+                              caseRow.status === "Finish" && "bg-emerald-500"
+                            )}></span>
+                            {caseRow.status}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={() => setSelectedWork(null)}
+                  className="px-4 py-2 bg-main hover:bg-main/90 text-white rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+                >
+                  Close Case List
+                </button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!selectedDriver} onOpenChange={(open) => !open && setSelectedDriver(null)}>
+        <DialogContent className="max-w-4xl sm:max-w-[850px] p-6 bg-background border border-border rounded-lg shadow-2xl overflow-y-auto max-h-[90vh]">
+          <DialogHeader className="border-b pb-3 mb-4">
+            <DialogTitle className="text-xl font-bold text-main flex items-center gap-2">
+              <Truck className="h-5 w-5" /> Driver Dispatch & Delivery Details
+            </DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              Real-time delivery status breakdown and individual case tracking.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedDriver && (
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 py-3 bg-muted/45 px-4 rounded-lg border border-border">
+                <div>
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wider block">Driver Name</span>
+                  <span className="text-lg font-bold text-main">{selectedDriver.driver}</span>
+                  <span className="text-xs text-muted-foreground block mt-0.5">{selectedDriver.route}</span>
+                </div>
+                <div className="flex gap-2 animate-in fade-in slide-in-from-right-3 duration-300">
+                  <div className="text-center px-3 py-1.5 bg-blue-50 dark:bg-blue-950/20 border border-blue-200/50 rounded-lg">
+                    <span className="text-[10px] text-blue-700 dark:text-blue-400 font-semibold block uppercase">Assigned</span>
+                    <span className="text-base font-bold text-blue-800 dark:text-blue-300">{selectedDriver.assigned}</span>
+                  </div>
+                  <div className="text-center px-3 py-1.5 bg-amber-50 dark:bg-amber-950/20 border border-amber-200/50 rounded-lg">
+                    <span className="text-[10px] text-amber-700 dark:text-amber-400 font-semibold block uppercase">Pending</span>
+                    <span className="text-base font-bold text-amber-800 dark:text-amber-300">{selectedDriver.pending}</span>
+                  </div>
+                  <div className="text-center px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200/50 rounded-lg">
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold block uppercase">Delivered</span>
+                    <span className="text-base font-bold text-emerald-800 dark:text-emerald-300">{selectedDriver.delivered}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-x-auto rounded-lg border border-border">
+                <Table>
+                  <TableHeader className="bg-muted/40">
+                    <TableRow>
+                      <TableHead className="pl-4 py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Case No</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Clinic</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Patient</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Dentist</TableHead>
+                      <TableHead className="py-2 font-semibold text-foreground text-xs uppercase tracking-wider">Dispatch Time</TableHead>
+                      <TableHead className="pr-4 py-2 text-right font-semibold text-foreground text-xs uppercase tracking-wider">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {(driverDetailsCases[selectedDriver.driver] || []).map((caseRow) => (
+                      <TableRow key={caseRow.no} className="hover:bg-muted/30 transition-colors">
+                        <TableCell className="pl-4 py-3 font-mono text-xs text-main font-semibold">{caseRow.no}</TableCell>
+                        <TableCell className="py-3 text-xs font-medium text-foreground">{caseRow.clinic}</TableCell>
+                        <TableCell className="py-3 text-xs text-foreground">{caseRow.patient}</TableCell>
+                        <TableCell className="py-3 text-xs text-muted-foreground">{caseRow.dentist}</TableCell>
+                        <TableCell className="py-3 text-xs text-muted-foreground">{caseRow.time}</TableCell>
+                        <TableCell className="pr-4 py-3 text-right">
+                          <span className={cn(
+                            "text-[10px] font-semibold px-2 py-0.5 rounded-full border inline-flex items-center gap-1",
+                            caseRow.status === "Assigned" && "bg-blue-50 text-blue-700 border-blue-200/50 dark:bg-blue-900/30 dark:text-blue-400",
+                            caseRow.status === "Pending" && "bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-900/30 dark:text-amber-400",
+                            caseRow.status === "Delivered" && "bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/30 dark:text-emerald-400"
+                          )}>
+                            <span className={cn(
+                              "w-1.5 h-1.5 rounded-full",
+                              caseRow.status === "Assigned" && "bg-blue-500",
+                              caseRow.status === "Pending" && "bg-amber-500",
+                              caseRow.status === "Delivered" && "bg-emerald-500"
+                            )}></span>
+                            {caseRow.status}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={() => setSelectedDriver(null)}
+                  className="px-4 py-2 bg-main hover:bg-main/90 text-white rounded-lg text-sm font-semibold transition-colors cursor-pointer"
+                >
+                  Close Driver Details
+                </button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
