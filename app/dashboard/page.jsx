@@ -447,6 +447,94 @@ function DashboardPage() {
         ))}
       </div>
 
+      {/* Today's Overdue Delivery Alerts Section */}
+      {((casesData.ordersPastDue || []).length > 0 || (casesData.fittingsPastDue || []).length > 0) && (
+        <div className="space-y-3 bg-rose-50/20 dark:bg-rose-950/5 border border-rose-200/30 dark:border-rose-900/10 p-4 rounded-xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+              </span>
+              <h3 className="text-sm font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
+                <AlertTriangle className="h-4 w-4" /> Overdue Delivery Warnings
+              </h3>
+            </div>
+            <span className="text-[10px] text-rose-600 dark:text-rose-400 font-bold bg-rose-100/60 dark:bg-rose-900/30 px-2 py-0.5 rounded-full border border-rose-200/50">
+              {casesData.ordersPastDue.length + casesData.fittingsPastDue.length} Urgent Alerts
+            </span>
+          </div>
+
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {/* Map ordersPastDue */}
+            {casesData.ordersPastDue.map((item) => {
+              const details = (workDetailsCases[item.work] || []).find(d => d.no === item.no) || {};
+              return (
+                <div 
+                  key={item.id} 
+                  className="bg-background border border-rose-200/50 dark:border-rose-900/30 p-3.5 rounded-lg flex items-start gap-3 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full bg-rose-500" />
+                  <div className="p-2 bg-rose-50 dark:bg-rose-950/50 rounded-lg text-rose-500 shrink-0">
+                    <Package className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[9px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider bg-rose-50 dark:bg-rose-900/30 px-1 py-0.5 rounded border border-rose-200/30">
+                        Order Overdue
+                      </span>
+                      <span className="text-[9px] text-muted-foreground font-semibold flex items-center gap-1">
+                        <Clock className="h-3 w-3 text-rose-500" /> Past Due
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground mt-2 flex items-center gap-1">
+                      {item.work} Case • <span className="font-mono text-[11px] text-main font-bold">{item.no}</span>
+                    </h4>
+                    <div className="mt-1.5 space-y-0.5 text-[11px] text-muted-foreground">
+                      <p className="truncate"><strong className="text-foreground font-medium">Clinic:</strong> {details.clinic || "Doha Dental Center"}</p>
+                      <p className="truncate"><strong className="text-foreground font-medium">Patient:</strong> {details.patient || "Nasser Al-Suwaidi"}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Map fittingsPastDue */}
+            {casesData.fittingsPastDue.map((item) => {
+              const details = (workDetailsCases[item.work] || []).find(d => d.no === item.no) || {};
+              return (
+                <div 
+                  key={item.id} 
+                  className="bg-background border border-rose-200/50 dark:border-rose-900/30 p-3.5 rounded-lg flex items-start gap-3 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full bg-rose-500" />
+                  <div className="p-2 bg-rose-50 dark:bg-rose-950/50 rounded-lg text-rose-500 shrink-0">
+                    <ClipboardList className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[9px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider bg-rose-50 dark:bg-rose-900/30 px-1 py-0.5 rounded border border-rose-200/30">
+                        Fitting Overdue
+                      </span>
+                      <span className="text-[9px] text-muted-foreground font-semibold flex items-center gap-1">
+                        <Clock className="h-3 w-3 text-rose-500" /> Past Due
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-foreground mt-2 flex items-center gap-1">
+                      {item.work} Case • <span className="font-mono text-[11px] text-main font-bold">{item.no}</span>
+                    </h4>
+                    <div className="mt-1.5 space-y-0.5 text-[11px] text-muted-foreground">
+                      <p className="truncate"><strong className="text-foreground font-medium">Clinic:</strong> {details.clinic || "Smile Signature"}</p>
+                      <p className="truncate"><strong className="text-foreground font-medium">Patient:</strong> {details.patient || "Fatima Al-Kuwari"}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Dental & Operations Status in below  */}
       <Card className="shadow-sm border border-border overflow-hidden">
         <CardHeader className="pb-4">
